@@ -1,0 +1,51 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% load core_tags %}
+
+{% block superior %}
+
+<!-- esse bloco está à cima do menu -->
+
+{% endblock %} 
+
+<!-- o menu está no base.html e aparece aqui -->
+
+{% block conteudo %}
+
+<div class="container-fluid" style="margin-top: 2%">
+	<div class="container-fluid">
+		<div class="row">
+			<!-- COLUNA DA ESQUERDA -->
+			<div class="col-sm-2">
+				<ul class="list-group">
+					<li class="list-group-item">
+						<a href="{% url 'core:index' %}">
+							Todas as Categorias
+						</a>
+					</li>
+					{% for category in categories %}
+					<!-- acrescentar a class active -->
+					<li class="list-group-item">
+						<a href="{% url 'core:category' category.id %}">
+						{{ category }}</a>
+					</li>
+					{% endfor %}
+				</ul> 
+			</div>
+
+			<!-- COLUNA DO MEIO -->
+			<div class="col-sm-9">
+
+				<h2>Obrigado!</h2>
+				
+			</div>
+
+		</div>
+
+	</div>
+</div>
+{% endblock %} <!-- fim do bloco conteudo -->
+
+<!-- roda pé que está na página base.html aparece aqui -->
+
+

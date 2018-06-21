@@ -1,0 +1,99 @@
+{% extends 'dashboard_admin/index.html' %}
+
+{% block extra %}
+{% load da_tags %}
+{% endblock %}
+
+{% block central_column %}
+<!-- COLUNA DO MEIO -->
+<div class="col-sm-9">
+	{% block dashboard_title %}
+	<h5>Área Administrativa -> Clientes Cadastrados -> Detalhes</h5>
+	{% endblock %}
+
+	<div class="container" style="width: 100%">
+	  {% if messages %}
+	    {% for message in messages %}
+	        <div class="alert alert-success alert-dismissable">
+	          <button type="button" class="close" data-dismiss="alert">&times;</button>
+	          {{ message }}
+	        </div>
+	    {% endfor %}
+	  {% endif %}
+	</div>
+	
+	<form method="post">
+		{% csrf_token %}
+		<table class="table">
+			<tr>
+				<td>Login</td>
+				<td>{{ form.username }}</td>
+			</tr>
+			<tr>
+				<td>Nome</td>
+				<td>{{ form.name }}</td>
+			</tr>
+			<tr>
+				<td>E-Mail</td>
+				<td>{{ form.email }}</td>
+			</tr>
+			<tr>
+				<td>Telefone</td>
+				<td>{{ form.telefone }}</td>
+			</tr>
+			<tr>
+				<td>CPF</td>
+				<td>{{ form.cpf }}</td>
+			</tr>
+			<tr>
+				<td>Logradouro</td>
+				<td>{{ form.logradouro }}</td>
+			</tr>
+			<tr>
+				<td>Número</td>
+				<td>{{ form.numero }}</td>
+			</tr>
+			<tr>
+				<td>CEP</td>
+				<td>{{ form.cep }}</td>
+			</tr>
+			<tr>
+				<td>Complemento</td>
+				<td>{{ form.complemento }}</td>
+			</tr>
+			<tr>
+				<td>Bairro</td>
+				<td>{{ form.bairro }}</td>
+			</tr>
+			<tr>
+				<td>Estado</td>
+				<td>{{ form.estado }}</td>
+			</tr>
+			
+		</table>
+		<table>
+			<tr>
+				<a href="#">
+					<td>
+						<input type="submit" class="btn btn-primary" value="Enviar">
+					</td>
+				</a>
+				
+				<td>
+					<a href="{% url 'accounts:change_password' %}">
+						<input type="button" class="btn btn-primary" 
+						value="Alterar Senha">
+					</a>
+				</td>
+				<!-- <td>
+					<a href="#">
+						<input type="button" class="btn btn-danger" value="Deletar">
+					</a>
+				</td> -->
+				
+			</tr>
+		</table>
+	</form>
+
+</div>
+{% endblock %}
