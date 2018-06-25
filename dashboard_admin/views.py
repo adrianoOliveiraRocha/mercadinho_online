@@ -34,9 +34,8 @@ def new_category(request):
 			messages.warning(request,
 				"Por favor, preencha os campos corretamente!")
 
-
 		context['form'] = form
-		return HttpResponse("let's go? to work")
+		
 	return render(request, 'dashboard_admin/new_category.html',
 		context)
 

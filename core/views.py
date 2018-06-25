@@ -13,9 +13,9 @@ from django.core.paginator import Paginator
 User = get_user_model()
 
 def index(request):
-	all_categories = Category.objects.all()
+	categories = Category.objects.all()
 	context = {
-		'all_categories': all_categories,
+		'categories': categories,
 	}
 	return render(request, 'core/index.html',
 		context)
