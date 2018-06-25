@@ -83,12 +83,17 @@ def new_product(request):
 		form = ProductForm()
 		context['form'] = form
 	else:
-		form = ProductForm(request.POST)
+		form = ProductForm(request.POST, request.FILES)
 		if form.is_valid():
 			value = Utils.convertStringForNumber(
 				request.POST.get('value'))
-			product = form.save()
+			product = Product()
+			product.name = form.cleaned_data['name']
+			product.description = form.cleaned_data['description']
+			product.image = form.cleaned_data['image']
 			product.value = value
+			product.brand = form.cleaned_data['brand']
+			product.category = form.cleaned_data['category']
 			product.save()
 			messages.success(request,
 				"Novo Produto salvo com sucesso!")
