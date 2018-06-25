@@ -35,7 +35,22 @@
 		
 	<script src="https://cdn.rawgit.com/adrianoOliveiraRocha/cdn/master/lojagrafica/media/js/jquery.dataTables.js"></script>
 	<!-- End DataTable -->
-{% block extrastatic %}{% endblock %}
+{% block extrastatic %}
+	<script type="text/javascript" language="javascript" class="init">
+	  $(document).ready(function() {
+	    $('#table').DataTable({
+	      "language": {
+	            "lengthMenu": "Exibindo _MENU_ registros por página",
+	            "zeroRecords": "Nenhum registro encontrado - desculpe",
+	            "info": "Exibindo a página _PAGE_ de _PAGES_",
+	            "infoEmpty": "Sem registros disponíveis",
+	            "infoFiltered": "(filtered from _MAX_ total records)"
+	        },
+	        "scrollX": true
+	    });
+	  } );
+	</script>
+{% endblock %}
 
 </head>
 <body>
@@ -84,7 +99,7 @@
 				Produtos
 				</a>
 				<div class="dropdown-menu">
-					<a class="dropdown-item" href="#">Novo</a>
+					<a class="dropdown-item" href="{% url 'dashboard_admin:new_product' %}">Novo</a>
 					<a class="dropdown-item" href="#">Exibir Todos</a>
 				</div>
 			</li>

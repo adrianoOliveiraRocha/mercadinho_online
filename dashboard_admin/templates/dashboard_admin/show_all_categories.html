@@ -10,9 +10,9 @@
 <!-- o menu está no base.html e aparece aqui -->
 
 {% block conteudo %}
-<div class="panel panel-default form-central">
+<div class="panel panel-default table-two-column">
 
-	<div class="container" style="width: 100%">
+	<div class="container">
 	  {% if messages %}
 	    {% for message in messages %}
 	        <div class="alert alert-warning alert-dismissable">
@@ -51,7 +51,7 @@
 
 				<tr>
 					<td style="text-align: center;">
-						<a href="#" 
+						<a href="{% url 'dashboard_admin:edit_category' category.id %}" 
 						title="Editar Categoria">
 					  	{{ category.id }}
 						</a>

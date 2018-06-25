@@ -22,9 +22,6 @@ class Product(models.Model):
 	# marca do produto
 	brand = models.CharField("Marca", max_length=100,
 		null=True, blank=True)
-	# data de validade
-	expiration_date = models.DateField('Data de Validade',
-		null=True, blank=True)
 	category = models.ForeignKey(Category, on_delete=models.CASCADE,
 		null=True, blank=True)
 
