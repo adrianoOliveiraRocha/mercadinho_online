@@ -1,5 +1,6 @@
 Django==2.0.6
 django-cleanup==2.1.0
 django-widget-tweaks==1.4.1
+easy-thumbnails==2.5
 Pillow==5.0.0
 

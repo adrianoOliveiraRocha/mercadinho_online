@@ -2,8 +2,6 @@ from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
 from django.views.generic.base import TemplateView
-# from django.views.generic import CreateView
-# from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import get_user_model
 from django.urls import reverse_lazy
 from catalog.models import Category

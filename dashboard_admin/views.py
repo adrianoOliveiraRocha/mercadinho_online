@@ -39,3 +39,10 @@ def new_category(request):
 	return render(request, 'dashboard_admin/new_category.html',
 		context)
 
+
+@login_required
+def show_all_categories(request):
+	categories = Category.objects.all()
+	context = {'categories':categories}
+	return render(request, 'dashboard_admin/show_all_categories.html',
+		context)

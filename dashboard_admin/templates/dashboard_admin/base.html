@@ -70,7 +70,10 @@
 				<div class="dropdown-menu">
 					<a class="dropdown-item" 
 					href="{% url 'dashboard_admin:new_category' %}">Nova</a>
-					<a class="dropdown-item" href="#">Exibir Todas</a>
+					<a class="dropdown-item" 
+					href="{% url 'dashboard_admin:show_all_categories' %}">
+						Exibir Todas
+					</a>
 				</div>
 			</li>
 

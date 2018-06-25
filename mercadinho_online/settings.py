@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'widget_tweaks',
+    'easy_thumbnails',
     'accounts',
     'core',
     'catalog',
@@ -165,3 +166,15 @@ MESSAGE_TAGS = {
 PAGSEGURO_TOKEN = "390CF2D3A2CB4C36BF19A30243AF536B"
 PAGSEGURO_EMAIL = "adriano.qwe32@yahoo.com.br"
 PAGSEGURO_SANDBOX = True
+
+
+THUMBNAIL_ALIASES = {
+    '': {
+        'product_image': {'size': (280, 160), 'crop': True},
+    },
+}
+"""
+in template
+{% load thumbnail %}
+<img src="{{ profile.image|thumbnail_url:'product_image' }}" alt="" />
+"""
