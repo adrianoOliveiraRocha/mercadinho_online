@@ -1,9 +1,22 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title></title>
-</head>
-<body>
-	<h2>Programmer Python</h2>
-</body>
-</html>
+{% extends 'dashboard_admin/base.html' %}
+{% load static %}
+
+	{% block superior %}
+	
+	<!-- esse bloco está à cima do menu -->
+	
+	{% endblock %} 
+
+	<!-- o menu está no base.html e aparece aqui -->
+
+	{% block conteudo %}
+
+	<div class="container-fluid" style="margin-top: 2%">
+		<div class="container-fluid">
+			it extends the dashboard_admin base.html 			
+
+		</div>
+	</div>
+	{% endblock %} <!-- fim do bloco conteudo -->
+
+	<!-- roda pé que está na página base.html aparece aqui -->
