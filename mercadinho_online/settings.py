@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'core',
     'catalog',
     'dashboard_admin',
+    'dashboard_client',
 ]
 
 MIDDLEWARE = [

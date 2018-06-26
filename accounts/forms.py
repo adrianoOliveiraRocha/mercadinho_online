@@ -12,7 +12,7 @@ class UserAdminCreationForm(UserCreationForm):
 		model = User
 		# informations showed when create use
 		fields = ['username', 'email', 'name', 'cpf', 'telefone', 'logradouro',
-		'numero', 'cep', 'complemento', 'bairro', 'estado']
+		'numero', 'cep', 'complemento', 'cidade', 'bairro', 'estado']
 
 # this form edit user
 class UserAdminForm(forms.ModelForm):
@@ -20,7 +20,7 @@ class UserAdminForm(forms.ModelForm):
 	class Meta:
 		model = User
 		fields = ['username', 'email', 'name', 'cpf', 'telefone', 'logradouro',
-		'numero', 'cep', 'complemento', 'bairro', 'estado']
+		'numero', 'cep', 'complemento', 'bairro', 'cidade', 'estado']
 
 
 class ClientForm(forms.ModelForm):
@@ -28,5 +28,5 @@ class ClientForm(forms.ModelForm):
 	class Meta:
 		model = User
 		fields = ['username', 'email', 'name', 'cpf', 'telefone', 'logradouro',
-		'numero', 'cep', 'complemento', 'bairro', 'estado']
+		'numero', 'cep', 'complemento', 'bairro', 'cidade', 'estado']
 

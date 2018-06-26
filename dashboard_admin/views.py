@@ -6,6 +6,7 @@ from catalog.models import Category, Product
 from catalog.forms import CategoryForm, ProductForm
 from django.contrib import messages
 from core.utils import Utils
+from django.urls import reverse
 
 
 @login_required
@@ -48,6 +49,13 @@ def show_all_categories(request):
 	return render(request, 'dashboard_admin/show_all_categories.html',
 		context)
 
+@login_required
+def show_all_products(request):
+	products = Product.objects.all()
+	context = {'products':products}
+	return render(request, 'dashboard_admin/show_all_products.html',
+		context)
+
 
 @login_required
 def edit_category(request, id_category):
@@ -58,6 +66,7 @@ def edit_category(request, id_category):
 	if request.method == 'GET':
 		form = CategoryForm(instance=category)
 		context['form'] = form	
+		context['id_category'] = category.id
 	else:
 		form = CategoryForm(request.POST)
 		context['form'] = form
@@ -72,6 +81,39 @@ def edit_category(request, id_category):
 
 
 	return render(request, 'dashboard_admin/edit_category.html',
+		context)
+
+
+@login_required
+def edit_product(request, id_product):
+
+	context = {}
+	product = Product.objects.get(id=id_product)
+	
+	if request.method == 'GET':
+		form = ProductForm(instance=product)
+		context['form'] = form	
+		context['id_product'] = product.id
+	else:
+		form = ProductForm(request.POST, request.FILES)
+		context['form'] = form
+		if form.is_valid():
+			value = Utils.convertStringForNumber(
+				request.POST.get('value'))
+			product.name = form.cleaned_data['name']
+			product.description = form.cleaned_data['description']
+			product.image = form.cleaned_data['image']
+			product.brand = form.cleaned_data['brand']
+			product.category = form.cleaned_data['category']
+			product.value = value
+			product.save()
+			messages.success(request,
+				'Produto editado com secesso!')
+		else:
+			messages.warning(request,
+				'Por favor, preencha os dados corretamente!')
+
+	return render(request, 'dashboard_admin/edit_product.html',
 		context)
 
 
@@ -104,3 +146,21 @@ def new_product(request):
 		
 	return render(request, 'dashboard_admin/new_product.html',
 		context)
+
+
+@login_required
+def delete_category(request, id_category):
+	category = Category.objects.get(id=id_category)
+	category.delete()
+	messages.success(request, 
+		"Categoria deletada com sucesso!")
+	return HttpResponseRedirect(reverse('dashboard_admin:show_all_categories'))
+
+
+@login_required
+def delete_product(request, id_product):
+	product = Product.objects.get(id=id_product)
+	product.delete()
+	messages.success(request, 
+		"Produto deletado com sucesso!")
+	return HttpResponseRedirect(reverse('dashboard_admin:show_all_products'))

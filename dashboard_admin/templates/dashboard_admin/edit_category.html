@@ -10,6 +10,8 @@
 <!-- o menu está no base.html e aparece aqui -->
 
 {% block conteudo %}
+
+
 <div class="panel panel-default form-central">
 
 	<div class="container" style="width: 100%">
@@ -49,13 +51,15 @@
 		            <button type="submit" class="btn btn-primary">
 		            	Enviar
 		            </button>
-		            <button class="btn btn-danger">
-		            	Deletar
-		            </button>
+		            <a href="{% url 'dashboard_admin:delete_category' id_category %}" class="btn btn-danger"> 
+			        	Deletar
+			        </a>
 		          </div>
+
 		        </div>
 		    </fieldset>
 		</form> 
+		
 	</div>
 </div>
 {% endblock %} <!-- fim do bloco conteudo -->

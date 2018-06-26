@@ -12,16 +12,7 @@
 {% block conteudo %}
 <div class="panel panel-default form-central">
 
-	<div class="container" style="width: 100%">
-	  {% if messages %}
-	    {% for message in messages %}
-	        <div class="alert alert-warning alert-dismissable">
-	          <button type="button" class="close" data-dismiss="alert">&times;</button>
-	          {{ message }}
-	        </div>
-	    {% endfor %}
-	  {% endif %}
-	</div>
+	
 
 	{% block dashboard_title %}
 	<div class="panel-heading" style="margin: 2%;">
