@@ -38,7 +38,7 @@
 		          </label>
 		          <div class="col-md-9">
 		            {% render_field form.username class="form-control" %}
-		            {% for error in form.name.errors %}
+		            {% for error in form.username.errors %}
 		                <span class="help-block">{{ error }}</span>
 		            {% endfor %}
 		          </div>

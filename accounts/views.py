@@ -92,8 +92,9 @@ def my_data(request):
 		form = UserAdminForm(request.POST, instance=user)
 		context.update({'form': form})
 		if form.is_valid():
-			form.save()
-			messages.success(request, 'Dados alterados com sucesso!')
+			if form.has_changed():
+				form.save()
+				messages.success(request, 'Dados alterados com sucesso!')
 
 	return render(request, 'accounts/my_data.html', context)
 

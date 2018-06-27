@@ -1,5 +1,5 @@
 {% extends 'dashboard_admin/index.html' %}
-
+{% load widget_tweaks %}
 {% block extra %}
 {% load da_tags %}
 {% endblock %}
@@ -22,78 +22,212 @@
 	  {% endif %}
 	</div>
 	
-	<form method="post">
-		{% csrf_token %}
-		<table class="table">
-			<tr>
-				<td>Login</td>
-				<td>{{ form.username }}</td>
-			</tr>
-			<tr>
-				<td>Nome</td>
-				<td>{{ form.name }}</td>
-			</tr>
-			<tr>
-				<td>E-Mail</td>
-				<td>{{ form.email }}</td>
-			</tr>
-			<tr>
-				<td>Telefone</td>
-				<td>{{ form.telefone }}</td>
-			</tr>
-			<tr>
-				<td>CPF</td>
-				<td>{{ form.cpf }}</td>
-			</tr>
-			<tr>
-				<td>Logradouro</td>
-				<td>{{ form.logradouro }}</td>
-			</tr>
-			<tr>
-				<td>Número</td>
-				<td>{{ form.numero }}</td>
-			</tr>
-			<tr>
-				<td>CEP</td>
-				<td>{{ form.cep }}</td>
-			</tr>
-			<tr>
-				<td>Complemento</td>
-				<td>{{ form.complemento }}</td>
-			</tr>
-			<tr>
-				<td>Bairro</td>
-				<td>{{ form.bairro }}</td>
-			</tr>
-			<tr>
-				<td>Estado</td>
-				<td>{{ form.estado }}</td>
-			</tr>
-			
-		</table>
-		<table>
-			<tr>
-				<a href="#">
-					<td>
-						<input type="submit" class="btn btn-primary" value="Enviar">
-					</td>
-				</a>
-				
-				<td>
-					<a href="{% url 'accounts:change_password' %}">
-						<input type="button" class="btn btn-primary" 
-						value="Alterar Senha">
-					</a>
-				</td>
-				<!-- <td>
-					<a href="#">
-						<input type="button" class="btn btn-danger" value="Deletar">
-					</a>
-				</td> -->
-				
-			</tr>
-		</table>
-	</form>
+	<form class="form-horizontal" method="post">
+      {% csrf_token %}
+      
+          <fieldset>
+              <!-- username -->
+              <div class="form-group {% if form.username.erros %} has-error {% endif %}">
+                <label for="{{ form.username.auto_id }}" class="col-md-3 control-label">
+                    {{ form.username.label }}
+                </label>
+                <div class="col-md-9">
+                  {% render_field form.username class="form-control" %}
+                  {% for error in form.username.errors %}
+                      <span style="color: red">{{ error }}</span>
+                  {% endfor %}
+                </div>
+              </div>
+
+              <!-- email -->
+              <div class="form-group {% if form.email.erros %} has-error {% endif %}">
+                <label for="{{ form.email.auto_id }}" class="col-md-3 control-label">
+                    {{ form.email.label }}
+                </label>
+                <div class="col-md-9">
+                  {% render_field form.email class="form-control" %}
+                  {% for error in form.email.errors %}
+                      <span style="color: red">{{ error }}</span>
+                  {% endfor %}
+                </div>
+              </div>
+              
+              <!-- password1 -->
+              <div class="form-group {% if form.password1.erros %} has-error {% endif %}">
+                <label for="{{ form.password1.auto_id }}" class="col-md-3 control-label">
+                    {{ form.password1.label }}
+                </label>
+                <div class="col-md-9">
+                  {% render_field form.password1 class="form-control" %}
+                  {% for error in form.password1.errors %}
+                      <span style="color: red">{{ error }}</span>
+                  {% endfor %}
+                </div>
+              </div>
+
+              <!-- password2 -->
+              <div class="form-group {% if form.password2.erros %} has-error {% endif %}">
+                <label for="{{ form.password2.auto_id }}" class="col-md-3 control-label">
+                    {{ form.password2.label }}
+                </label>
+                <div class="col-md-9">
+                  {% render_field form.password2 class="form-control" %}
+                  {% for error in form.password2.errors %}
+                      <span style="color: red">{{ error }}</span>
+                  {% endfor %}
+                </div>
+              </div>
+
+              <!-- name -->
+              <div class="form-group {% if form.name.erros %} has-error {% endif %}">
+                <label for="{{ form.name.auto_id }}" class="col-md-3 control-label">
+                    {{ form.name.label }}
+                </label>
+                <div class="col-md-9">
+                  {% render_field form.name class="form-control" %}
+                  {% for error in form.name.errors %}
+                      <span style="color: red">{{ error }}</span>
+                  {% endfor %}
+                </div>
+              </div>
+
+              <!-- cpf -->
+              <div class="form-group {% if form.cpf.erros %} has-error {% endif %}">
+                <label for="{{ form.cpf.auto_id }}" class="col-md-3 control-label">
+                    {{ form.cpf.label }}
+                </label>
+                <div class="col-md-9">
+                  {% render_field form.cpf class="form-control" %}
+                  {% for error in form.cpf.errors %}
+                      <span style="color: red">{{ error }}</span>
+                  {% endfor %}
+                </div>
+              </div>
+
+              <!-- telefone -->
+              <div class="form-group {% if form.telefone.erros %} has-error {% endif %}">
+                <label for="{{ form.telefone.auto_id }}" class="col-md-3 control-label">
+                    {{ form.telefone.label }}
+                </label>
+                <div class="col-md-9">
+                  {% render_field form.telefone class="form-control" %}
+                  {% for error in form.telefone.errors %}
+                      <span style="color: red">{{ error }}</span>
+                  {% endfor %}
+                </div>
+              </div>
+
+              <!-- logradouro -->
+              <div class="form-group {% if form.logradouro.erros %} has-error {% endif %}">
+                <label for="{{ form.logradouro.auto_id }}" class="col-md-3 control-label">
+                    {{ form.logradouro.label }}
+                </label>
+                <div class="col-md-9">
+                  {% render_field form.logradouro class="form-control" %}
+                  {% for error in form.logradouro.errors %}
+                      <span style="color: red">{{ error }}</span>
+                  {% endfor %}
+                </div>
+              </div>              
+
+              <!-- numero -->
+              <div class="form-group {% if form.numero.erros %} has-error {% endif %}">
+                <label for="{{ form.numero.auto_id }}" class="col-md-3 control-label">
+                    {{ form.numero.label }}
+                </label>
+                <div class="col-md-9">
+                  {% render_field form.numero class="form-control" %}
+                  {% for error in form.numero.errors %}
+                      <span style="color: red">{{ error }}</span>
+                  {% endfor %}
+                </div>
+              </div>
+
+              <!-- cep -->
+              <div class="form-group {% if form.cep.erros %} has-error {% endif %}">
+                <label for="{{ form.cep.auto_id }}" class="col-md-3 control-label">
+                    {{ form.cep.label }}
+                </label>
+                <div class="col-md-9">
+                  {% render_field form.cep class="form-control" %}
+                  {% for error in form.cep.errors %}
+                      <span style="color: red">{{ error }}</span>
+                  {% endfor %}
+                </div>
+              </div>
+
+              <!-- complemento -->
+              <div class="form-group {% if form.complemento.erros %} has-error {% endif %}">
+                <label for="{{ form.complemento.auto_id }}" class="col-md-3 control-label">
+                    {{ form.complemento.label }}
+                </label>
+                <div class="col-md-9">
+                  {% render_field form.complemento class="form-control" %}
+                  {% for error in form.complemento.errors %}
+                      <span style="color: red">{{ error }}</span>
+                  {% endfor %}
+                </div>
+              </div>
+
+              <!-- bairro -->
+              <div class="form-group {% if form.bairro.erros %} has-error {% endif %}">
+                <label for="{{ form.bairro.auto_id }}" class="col-md-3 control-label">
+                    {{ form.bairro.label }}
+                </label>
+                <div class="col-md-9">
+                  {% render_field form.bairro class="form-control" %}
+                  {% for error in form.bairro.errors %}
+                      <span style="color: red">{{ error }}</span>
+                  {% endfor %}
+                </div>
+              </div>
+
+              <!-- name -->
+              <div class="form-group {% if form.cidade.erros %} has-error {% endif %}">
+                <label for="{{ form.cidade.auto_id }}" class="col-md-3 control-label">
+                    {{ form.cidade.label }}
+                </label>
+                <div class="col-md-9">
+                  {% render_field form.cidade class="form-control" %}
+                  {% for error in form.cidade.errors %}
+                      <span style="color: red">{{ error }}</span>
+                  {% endfor %}
+                </div>
+              </div>
+
+              <!-- estado -->
+              <div class="form-group {% if form.estado.erros %} has-error {% endif %}">
+                <label for="{{ form.estado.auto_id }}" class="col-md-3 control-label">
+                    {{ form.estado.label }}
+                </label>
+                <div class="col-md-9">
+                  {% render_field form.estado class="form-control" %}
+                  {% for error in form.estado.errors %}
+                      <span style="color: red">{{ error }}</span>
+                  {% endfor %}
+                </div>
+              </div>
+
+              <!-- país -->
+              <div class="form-group {% if form.pais.erros %} has-error {% endif %}">
+                <label for="{{ form.pais.auto_id }}" class="col-md-3 control-label">
+                    {{ form.pais.label }}
+                </label>
+                <div class="col-md-9">
+                  {% render_field form.pais class="form-control" %}
+                  {% for error in form.pais.errors %}
+                      <span style="color: red">{{ error }}</span>
+                  {% endfor %}
+                </div>
+              </div>
+
+              <div class="form-group">
+                <div class="col-md-9 col-md-offset-3">
+                  <button type="submit" class="btn btn-primary">Enviar</button>
+                </div>
+              </div>
+          </fieldset>
+      </form>
 
 </div>
 {% endblock %}
