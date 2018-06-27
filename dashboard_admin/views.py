@@ -25,6 +25,8 @@ def new_category(request):
 	if request.method == 'GET':
 		form = CategoryForm()
 		context['form'] = form
+		return render(request, 'dashboard_admin/new_category.html',
+			context)
 	else:
 		form = CategoryForm(request.POST)
 		if form.is_valid():
@@ -37,9 +39,10 @@ def new_category(request):
 				"Por favor, preencha os campos corretamente!")
 
 		context['form'] = form
+		return HttpResponseRedirect(
+			reverse('dashboard_admin:show_all_categories'))
 		
-	return render(request, 'dashboard_admin/new_category.html',
-		context)
+	
 
 
 @login_required
@@ -89,11 +92,14 @@ def edit_product(request, id_product):
 
 	context = {}
 	product = Product.objects.get(id=id_product)
-	
+		
 	if request.method == 'GET':
 		form = ProductForm(instance=product)
 		context['form'] = form	
+		context['value'] = product.value
 		context['id_product'] = product.id
+		return render(request, 'dashboard_admin/edit_product.html',
+			context)
 	else:
 		form = ProductForm(request.POST, request.FILES)
 		context['form'] = form
@@ -102,7 +108,10 @@ def edit_product(request, id_product):
 				request.POST.get('value'))
 			product.name = form.cleaned_data['name']
 			product.description = form.cleaned_data['description']
-			product.image = form.cleaned_data['image']
+
+			if form.cleaned_data['image']:
+				product.image = form.cleaned_data['image']
+
 			product.brand = form.cleaned_data['brand']
 			product.category = form.cleaned_data['category']
 			product.value = value
@@ -113,8 +122,10 @@ def edit_product(request, id_product):
 			messages.warning(request,
 				'Por favor, preencha os dados corretamente!')
 
-	return render(request, 'dashboard_admin/edit_product.html',
-		context)
+		return HttpResponseRedirect(
+			reverse('dashboard_admin:show_all_products'))
+
+	
 
 
 @login_required
@@ -124,6 +135,8 @@ def new_product(request):
 	if request.method == 'GET':
 		form = ProductForm()
 		context['form'] = form
+		return render(request, 'dashboard_admin/new_product.html',
+			context)
 	else:
 		form = ProductForm(request.POST, request.FILES)
 		if form.is_valid():
@@ -143,9 +156,10 @@ def new_product(request):
 			messages.warning(request,
 				"Por favor, preencha os campos corretamente!")
 		context['form'] = form
+
+		return HttpResponseRedirect(reverse('dashboard_admin:show_all_products'))
 		
-	return render(request, 'dashboard_admin/new_product.html',
-		context)
+	
 
 
 @login_required
@@ -154,7 +168,8 @@ def delete_category(request, id_category):
 	category.delete()
 	messages.success(request, 
 		"Categoria deletada com sucesso!")
-	return HttpResponseRedirect(reverse('dashboard_admin:show_all_categories'))
+	return HttpResponseRedirect(
+		reverse('dashboard_admin:show_all_categories'))
 
 
 @login_required
@@ -163,4 +178,5 @@ def delete_product(request, id_product):
 	product.delete()
 	messages.success(request, 
 		"Produto deletado com sucesso!")
-	return HttpResponseRedirect(reverse('dashboard_admin:show_all_products'))
+	return HttpResponseRedirect(
+		reverse('dashboard_admin:show_all_products'))

@@ -71,10 +71,13 @@
 				Categorias
 			</a>
 			<div class="dropdown-menu">
-				<a class="dropdown-item" href="#">Todas</a>
+				<a class="dropdown-item" 
+				href="{% url 'core:index' %}">
+					Todas
+				</a>
 				{% for category in categories %}
 				<a class="dropdown-item" 
-				href="#">
+				href="{% url 'core:category' category.id %}">
 					{{ category }}
 				</a>
 				{% endfor %}

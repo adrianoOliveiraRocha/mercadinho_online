@@ -1,4 +1,5 @@
 {% extends 'core/base.html' %}
+{% load thumbnail %}
 {% load static %}
 
 	{% block superior %}
@@ -11,12 +12,63 @@
 
 	{% block conteudo %}
 
+	
 	<div class="container-fluid" style="margin-top: 2%">
 		<div class="container-fluid">
-			
+			<h2>{{ label_category }}</h2>
+			<div class="row">
+				{% for product in products %}
+				<div class="col-sm-4">
+					<img 
+					src="{{ product.image|thumbnail_url:'product_image' }}" 
+					alt="" />
+					<div>{{ product.name }}</div>
+					<div>{{ product.description }}</div>
+					<div>Valor </div>
+					<div>
+						<a href="#' product.id %}">
+						Colocar no Carrinho
+						</a>
+					</div>
+					<p></p>
+				</div>
+				{% endfor %}
+			</div>
 
+			<!-- PAGINAÇÂO -->
+			<div class="container">
+				<ul class="pagination">
+				    {% if products.has_previous %}
+			    	<li class="page-item">
+			    		<a class="page-link" 
+			    			href="?page={{ products.previous_page_number }}">Anterior
+			    		</a>
+			    	</li>
+			        {% endif %}
+
+			        <!-- passar por todas -->
+			        {% for num in paginator.page_range %}
+			        <li class="page-item {% if num == products.number %} active {% endif %}">
+			        	<a class="page-link" 
+			        	href="?page={{ num }}">
+			        		{{ num }}
+			        	</a>
+			        </li>
+			        {% endfor %}
+
+			        {% if products.has_next %}
+			        <li class="page-item">
+			    		<a class="page-link" 
+			    			href="?page={{ products.next_page_number }}">Próxima
+			    		</a>
+			    	</li>
+			        {% endif %}
+				</ul>
+			</div> <!-- FIM PÁGINAÇÃO -->
 		</div>
 	</div>
+
+
 	{% endblock %} <!-- fim do bloco conteudo -->
 
 	<!-- roda pé que está na página base.html aparece aqui -->
