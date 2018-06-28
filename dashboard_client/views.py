@@ -6,6 +6,8 @@ from django.contrib import messages
 from core.utils import Utils
 from django.urls import reverse
 from accounts.forms import ClientForm
+from django.contrib.auth.forms import PasswordChangeForm
+from django.contrib.auth import update_session_auth_hash
 
 
 @login_required
@@ -46,9 +48,25 @@ def my_data(request):
 		else:
 			for error in form.errors:
 				print(error)	
-		return HttpResponseRedirect(reverse('dashboard_client:index'))
+	
+	return HttpResponseRedirect(reverse('dashboard_client:index'))
 		
 
+@login_required
+def change_password(request):
+	if request.method == 'POST':
+		form = PasswordChangeForm(request.user, request.POST)
+		if form.is_valid():
+			user = form.save()
+			update_session_auth_hash(request, user)
+			messages.success(request, 'Sua senha foi atualizada com sucesso!')
+			return HttpResponseRedirect(reverse('dashboard_client:my_data'))
+		else:
+			messages.success(request, 'Por favor, corrija o erro abaixo!')
+	else:
+		form = PasswordChangeForm(request.user)
+	return render(request, 'dashboard_client/change_password.html',
+		{'form': form})
 
 
 	

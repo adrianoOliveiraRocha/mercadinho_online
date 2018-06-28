@@ -24,7 +24,15 @@
 					alt="" />
 					<div>{{ product.name }}</div>
 					<div>{{ product.description }}</div>
-					<div>Valor </div>
+					<div>Valor R$ {{ product.value }}</div>
+					<div>
+						Marca: 
+						{% if product.brand %}
+							{{ product.brand }}
+						{% else %}
+							Não definida
+						{% endif %}
+					</div>
 					<div>
 						<a href="#' product.id %}">
 						Colocar no Carrinho
