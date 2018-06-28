@@ -23,37 +23,31 @@ def my_data(request):
 		return render(request, 'dashboard_client/my_data.html',
 			context)
 	else:
-		form = ClientForm(request.POST)
-		context = {'form': form}
+		form = ClientForm(request.POST, instance=client)
 		if form.is_valid():
 			if form.has_changed():
-				client.username = form.clened_date['username']
-				client.name = form.clened_date['name']
-				client.email = form.clened_date['email']
-				client.telefone = form.clened_date['telefone']
-				client.cpf = form.clened_date['cpf']
-				client.logradouro = form.clened_date['logradouro']
-				client.numero = form.clened_date['numero']
-				client.cep = form.clened_date['cep']
-				client.complemento = form.clened_date['complemento']
-				client.bairro = form.clened_date['bairro']
-				client.cidade = form.clened_date['cidade']
-				client.estado = form.clened_date['estado']
+				client.name = form.cleaned_data['name']
+				client.email = form.cleaned_data['email']
+				client.telefone = form.cleaned_data['telefone']
+				client.cpf = form.cleaned_data['cpf']
+				client.logradouro = form.cleaned_data['logradouro']
+				client.numero = form.cleaned_data['numero']
+				client.cep = form.cleaned_data['cep']
+				client.complemento = form.cleaned_data['complemento']
+				client.bairro = form.cleaned_data['bairro']
+				client.cidade = form.cleaned_data['cidade']
+				client.estado = form.cleaned_data['estado']
+				messages.success(request,
+					'Os dados foram alterados com sucesso!')
 				client.save()
-				messages.success(request,
-					"Alterações realizadas com sucesso!")
-				
 			else:
-				messages.success(request,
-					"Nenhuma alteração foi realizada")
-			return HttpResponse(
-					render('dashboard_client:index')
-				)
+				messages.warning(request,
+					'Os dados não foram alterados')
 		else:
-			messages.warning(request,
-				"O formulário não foi preenchido corretamente")
-			return render(request, 'dashboard_client/my_data.html',
-				context)
+			for error in form.errors:
+				print(error)	
+		return HttpResponseRedirect(reverse('dashboard_client:index'))
+		
 
 
 
