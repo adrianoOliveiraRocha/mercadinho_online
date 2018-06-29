@@ -1,4 +1,4 @@
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import render
 from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
 from django.views.generic.base import TemplateView
@@ -53,9 +53,21 @@ def category(request, category_id):
 class QuemSomosView(TemplateView):
 	template_name = "core/quem_somos.html"
 
+	def get_context_data(self, **kwargs):
+		context = super().get_context_data(**kwargs)
+		context['categories'] = Category.objects.all()
+		return context
+
+
+
 
 class ContatctView(TemplateView):
 	template_name = "core/contato.html"
+	
+	def get_context_data(self, **kwargs):
+		context = super().get_context_data(**kwargs)
+		context['categories'] = Category.objects.all()
+		return context
 
 
 

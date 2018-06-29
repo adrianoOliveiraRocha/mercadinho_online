@@ -29,4 +29,6 @@ urlpatterns = [
         name='index'),
     path('area_do_cliente/', include('dashboard_client.urls'), 
         name='index'),
+    path('checkout/', include('checkout.urls'),
+        name='insert_cart'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
