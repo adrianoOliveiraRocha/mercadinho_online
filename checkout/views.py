@@ -6,21 +6,25 @@ from checkout.models import Order, OrderItem
 from catalog.models import Product
 from core import utils
 from accounts.models import User
+from django.contrib import messages
 
 
 @login_required
 def insert_cart(request, product_id):
+	context = {}
 	if 'order_id' in request.session:
 		order = Order.objects.get(id=request.session['order_id'])
-
+		
 		orderItem = OrderItem()
 		product = Product.objects.get(id=product_id)
 		orderItem.order = order
 		orderItem.product = product
 		orderItem.value = product.value
 		orderItem.save()
-		return HttpResponse('More one product were add')
-
+		context['order'] = order
+		context['orderItems'] = OrderItem.objects.filter(order__id=order.id)
+		messages.success(request, 'Produto inserido no carrinho')
+		print(order)
 	else:
 		order = Order()
 		order.user = User.objects.get(id=request.user.id)
@@ -32,7 +36,23 @@ def insert_cart(request, product_id):
 		orderItem.product = product
 		orderItem.value = product.value
 		orderItem.save()
-
+		context['order'] = order
+		context['orderItems'] = OrderItem.objects.filter(order__id=order.id)
 		request.session['order_id'] = order.id 
-		return HttpResponse('I create the session variable that keep\
-		 the order id')
+		print(order)
+	return render(request, "dashboard_client/cart.html",
+		context)
+
+
+@login_required
+def cart(request):
+	context = {}
+	if 'order_id' in request.session:
+		order = Order.objects.get(id=request.session['order_id'])
+		context['order'] = order
+		context['orderItems'] = OrderItem.objects.filter(order__id=order.id)
+		
+	else:
+		messages.warning(request, 'Seu carrinho está vazio')
+	return render(request, "dashboard_client/cart.html",
+		context)

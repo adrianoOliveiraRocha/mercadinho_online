@@ -7,7 +7,6 @@ from django.urls import reverse_lazy
 from catalog.models import Category, Product
 from django.core.paginator import Paginator
 
-
 User = get_user_model()
 
 def index(request):
