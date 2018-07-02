@@ -15,12 +15,10 @@ from checkout.models import Order, OrderItem
 def index(request):
 	# search for order that had status active
 	order = Order.objects.filter(user__id=request.user.id).\
-	filter(status_order='A')
+	filter(status_order='A').first()
 	context = {}
 
 	if order:
-		return HttpResponse(order)
-
 		context['order'] = order
 		context['orderItems'] = OrderItem.objects.filter(order__id=order.id)
 		messages.success(request, 'Você tem um pedido ativo')
