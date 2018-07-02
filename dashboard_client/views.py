@@ -8,11 +8,27 @@ from django.urls import reverse
 from accounts.forms import ClientForm
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
+from checkout.models import Order, OrderItem
 
 
 @login_required
 def index(request):
-	return render(request, 'dashboard_client/index.html')
+	# search for order that had status active
+	order = Order.objects.filter(user__id=request.user.id).\
+	filter(status_order='A')
+	context = {}
+
+	if order:
+		return HttpResponse(order)
+
+		context['order'] = order
+		context['orderItems'] = OrderItem.objects.filter(order__id=order.id)
+		messages.success(request, 'Você tem um pedido ativo')
+	else:
+		messages.warning(request, 'Você não tem nenhum pedido ativo')
+
+	return render(request, 'dashboard_client/index.html',
+		context)
 
 
 @login_required
