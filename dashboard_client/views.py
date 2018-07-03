@@ -83,4 +83,14 @@ def change_password(request):
 		{'form': form})
 
 
+@login_required
+def update_value(request, orderitem, quantity):
+	orderItem = OrderItem.objects.get(id=orderitem)
+	productPrice = orderItem.product.value
+	orderItem.quantity = quantity
+	orderItem.value = quantity * productPrice
+	orderItem.save()
+	return HttpResponseRedirect(reverse('dashboard_client:index'))
+
+
 	
