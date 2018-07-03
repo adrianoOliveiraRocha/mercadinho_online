@@ -100,6 +100,7 @@ def delete_orderitem(request, orderitem):
 	order = Order.objects.get(id=orderItem.order.id)
 	if not Order.hasOrderItem(order.id):
 		order.delete()
+		request.session.clear()
 		
 	return HttpResponseRedirect(reverse('dashboard_client:index'))
 	
