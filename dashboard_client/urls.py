@@ -10,4 +10,6 @@ urlpatterns = [
 		name='change_password'),
 	path('update_value/<int:orderitem>/<int:quantity>',
 		views.update_value, name='update_value'),
+	path('delete_orderitem/<int:orderitem>',
+		views.delete_orderitem, name='delete_orderitem'),
 ]

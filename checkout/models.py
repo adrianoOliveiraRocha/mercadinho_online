@@ -53,6 +53,14 @@ class Order(models.Model):
 		verbose_name_plural = 'Pedidos'
 		ordering = ['date']
 
+	@staticmethod
+	def hasOrderItem(order_id):
+		items = OrderItem.objects.filter(order__id=order_id)
+		if items:
+			return True
+		else:
+			return False
+
 
 class OrderItem(models.Model):
 	quantity = models.PositiveSmallIntegerField(verbose_name='Quantidade',
@@ -66,3 +74,4 @@ class OrderItem(models.Model):
 		verbose_name = 'Ítem de Pedido'
 		verbose_name_plural = 'Ítens de Pedido'
 		ordering = ['order']
+

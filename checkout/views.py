@@ -40,19 +40,6 @@ def insert_cart(request, product_id):
 		context['orderItems'] = OrderItem.objects.filter(order__id=order.id)
 		request.session['order_id'] = order.id 
 		print(order)
-	return render(request, "dashboard_client/cart.html",
+	return render(request, "dashboard_client/index.html",
 		context)
 
-
-@login_required
-def cart(request):
-	context = {}
-	if 'order_id' in request.session:
-		order = Order.objects.get(id=request.session['order_id'])
-		context['order'] = order
-		context['orderItems'] = OrderItem.objects.filter(order__id=order.id)
-		
-	else:
-		messages.warning(request, 'Seu carrinho está vazio')
-	return render(request, "dashboard_client/cart.html",
-		context)

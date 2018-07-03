@@ -34,6 +34,7 @@
 		        <th>Preço</th>
 		        <th>Quantidade</th>
 		        <th>Valor R$</th>
+		        <th></th>
 		      </tr>
 		    </thead>
 		    <tbody>
@@ -49,6 +50,12 @@
 		        	</a>
 		        </td>
 		        <td>{{orderItem.value}}</td>
+		        <td>
+		        	<a href="{% url 'dashboard_client:delete_orderitem' orderItem.id %}" 
+		        	class="btn btn-danger">
+		        		Deletar
+		        	</a>
+		        </td>
 		      </tr>
 		      	{% endfor %}
 		      

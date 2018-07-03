@@ -20,7 +20,7 @@ function redirectAQ(imputName) {
 	if (isNaN(quantity)) {
 		alert('Por favor! digite a quantidade');
 	} else {
-		url = 'update_value/' + orderitem + '/' + quantity;
+		url = '/area_do_cliente/update_value/' + orderitem + '/' + quantity;
 		window.self.location.href = url;
 	}
 		

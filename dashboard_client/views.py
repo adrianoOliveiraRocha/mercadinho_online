@@ -21,7 +21,7 @@ def index(request):
 	if order:
 		context['order'] = order
 		context['orderItems'] = OrderItem.objects.filter(order__id=order.id)
-		messages.success(request, 'Você tem um pedido ativo')
+		
 	else:
 		messages.warning(request, 'Você não tem nenhum pedido ativo')
 
@@ -93,4 +93,13 @@ def update_value(request, orderitem, quantity):
 	return HttpResponseRedirect(reverse('dashboard_client:index'))
 
 
+@login_required
+def delete_orderitem(request, orderitem):
+	orderItem = OrderItem.objects.get(id=orderitem)
+	orderItem.delete()
+	order = Order.objects.get(id=orderItem.order.id)
+	if not Order.hasOrderItem(order.id):
+		order.delete()
+		
+	return HttpResponseRedirect(reverse('dashboard_client:index'))
 	
