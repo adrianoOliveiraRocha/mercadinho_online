@@ -6,10 +6,12 @@ from django.contrib.auth import get_user_model
 from django.urls import reverse_lazy
 from catalog.models import Category, Product
 from django.core.paginator import Paginator
+from django.contrib import messages
 
 User = get_user_model()
 
 def index(request):
+	# request.session.clear()
 	categories = Category.objects.all()
 	product_list = Product.objects.all()
 	paginator = Paginator(product_list, 6)
@@ -24,6 +26,11 @@ def index(request):
 		'products': products,
 		'paginator': paginator,
 	}
+
+	if 'order_id' in request.session:
+		print(request.session['howItems'])
+	else:
+		print("there isn't items in the cart")
 
 	return render(request, 'core/index.html',
 		context)

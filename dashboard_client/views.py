@@ -16,6 +16,7 @@ def index(request):
 	# search for order that had status active
 	order = Order.objects.filter(user__id=request.user.id).\
 	filter(status_order='A').first()
+	
 	context = {}
 
 	if order:
@@ -97,10 +98,13 @@ def update_value(request, orderitem, quantity):
 def delete_orderitem(request, orderitem):
 	orderItem = OrderItem.objects.get(id=orderitem)
 	orderItem.delete()
+	request.session['howItems'] = \
+	int(request.session['howItems']) - 1
 	order = Order.objects.get(id=orderItem.order.id)
 	if not Order.hasOrderItem(order.id):
 		order.delete()
-		request.session.clear()
+		del request.session['order_id']
+		del request.session['howItems']
 		
 	return HttpResponseRedirect(reverse('dashboard_client:index'))
 	

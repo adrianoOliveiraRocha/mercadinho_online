@@ -61,7 +61,7 @@ class Order(models.Model):
 		else:
 			return False
 
-
+	
 class OrderItem(models.Model):
 	quantity = models.PositiveSmallIntegerField(verbose_name='Quantidade',
 		default=1, editable=False)
