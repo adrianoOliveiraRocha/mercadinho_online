@@ -108,3 +108,11 @@ def delete_orderitem(request, orderitem):
 		
 	return HttpResponseRedirect(reverse('dashboard_client:index'))
 	
+
+@login_required
+def cancel_order(request, order_id):
+	order = Order.objects.get(id=order_id)
+	order.delete()
+	del request.session['order_id']
+	del request.session['howItems']
+	return HttpResponseRedirect(reverse('dashboard_client:index'))

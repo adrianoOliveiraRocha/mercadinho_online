@@ -12,4 +12,6 @@ urlpatterns = [
 		views.update_value, name='update_value'),
 	path('delete_orderitem/<int:orderitem>',
 		views.delete_orderitem, name='delete_orderitem'),
+	path('cancel_order/<int:order_id>',
+		views.cancel_order, name='cancel_order'),
 ]

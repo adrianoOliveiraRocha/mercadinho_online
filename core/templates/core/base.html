@@ -120,6 +120,18 @@
 			</li>
 
 			{% endif %}
+
+			{% if request.session.howItems %}
+			<li class="nav-item">
+				<a class="nav-link" 
+				href="{% url 'dashboard_client:index' %}">
+					Você tem teste 
+					{{ request.session.howItems }} 
+					produtos no carrinho
+				</a>
+			</li>
+			
+			{% endif %}
 			
 		</ul>
 	</nav> 
