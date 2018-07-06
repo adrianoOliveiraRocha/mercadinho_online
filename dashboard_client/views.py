@@ -22,7 +22,7 @@ def index(request):
 	if order:
 		context['order'] = order
 		context['orderItems'] = OrderItem.objects.filter(order__id=order.id)
-		# context['total'] = Order.getTotal(order)
+		context['total'] = Order.orderManager.get_total(order.id)
 	else:
 		messages.warning(request, 'Você não tem nenhum pedido ativo')
 

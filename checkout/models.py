@@ -14,6 +14,21 @@ STATUS_PAGSEGURO = (
 		('5', 'Cancelado')
 	)
 
+
+class OrderManager(models.Manager):
+	def get_total(self, order_id):
+		total = 0
+		from django.db import connection
+		with connection.cursor() as cursor:
+			cursor.execute("""
+				select sum(checkout_orderitem.value) as total
+				from checkout_orderitem 
+				where checkout_orderitem.order_id  =  {}
+				""".format(order_id))
+			total = cursor.fetchone()
+		return total[0]
+
+
 class Order(models.Model):
 	date = models.DateField(default=date.today, editable=False)
 	value = models.DecimalField('Valor R$', max_digits=10,
@@ -60,6 +75,9 @@ class Order(models.Model):
 			return True
 		else:
 			return False
+
+	objects = models.Manager() # The default manager.
+	orderManager = OrderManager()
 
 	
 class OrderItem(models.Model):
