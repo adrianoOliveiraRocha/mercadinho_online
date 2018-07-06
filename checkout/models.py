@@ -33,7 +33,7 @@ class OrderManager(models.Manager):
 		hasOrderItems = False
 		with connection.cursor() as cursor:
 			cursor.execute("""
-				select COUNT(checkout_orderitem.id)  as howOrderItems
+				select COUNT(checkout_orderitem.id) as hasOrderItems
 				from checkout_order, checkout_orderitem
 				where checkout_order.id = {} 
 				and checkout_order.id = checkout_orderitem.order_id
@@ -75,20 +75,12 @@ class Order(models.Model):
 		choices=STATUS_PAGSEGURO, null=True, blank=True)
 
 	def __str__(self):
-		return 'Pedido realizado em {}'.format(self.user, self.date)
+		return 'Pedido realizado por {} em {}'.format(self.user, self.date)
 
 	class Meta:
 		verbose_name = 'Pedido'
 		verbose_name_plural = 'Pedidos'
 		ordering = ['date']
-
-	@staticmethod
-	def hasOrderItem(order_id):
-		items = OrderItem.objects.filter(order__id=order_id)
-		if items:
-			return True
-		else:
-			return False
 
 	objects = models.Manager() # The default manager.
 	orderManager = OrderManager()
