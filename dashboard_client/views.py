@@ -101,7 +101,7 @@ def delete_orderitem(request, orderitem):
 	request.session['howItems'] = \
 	int(request.session['howItems']) - 1
 	order = Order.objects.get(id=orderItem.order.id)
-	if not Order.hasOrderItem(order.id):
+	if not Order.orderManager.hasOrderItem(order.id):
 		order.delete()
 		del request.session['order_id']
 		del request.session['howItems']

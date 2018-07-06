@@ -17,8 +17,8 @@ STATUS_PAGSEGURO = (
 
 class OrderManager(models.Manager):
 	def get_total(self, order_id):
-		total = 0
 		from django.db import connection
+		total = 0
 		with connection.cursor() as cursor:
 			cursor.execute("""
 				select sum(checkout_orderitem.value) as total
@@ -27,6 +27,20 @@ class OrderManager(models.Manager):
 				""".format(order_id))
 			total = cursor.fetchone()
 		return total[0]
+
+	def hasOrderItem(self, order_id):
+		from django.db import connection
+		hasOrderItems = False
+		with connection.cursor() as cursor:
+			cursor.execute("""
+				select COUNT(checkout_orderitem.id)  as howOrderItems
+				from checkout_order, checkout_orderitem
+				where checkout_order.id = {} 
+				and checkout_order.id = checkout_orderitem.order_id
+				""".format(order_id))
+			if int(cursor.fetchone()[0]) > 0:
+				hasOrderItems = True
+		return hasOrderItems
 
 
 class Order(models.Model):
