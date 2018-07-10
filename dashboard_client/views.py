@@ -31,6 +31,11 @@ def index(request):
 
 
 @login_required
+def send_order(request, order_id):
+	return render(request, 'dashboard_client/send_order.html')
+
+
+@login_required
 def my_data(request):
 
 	client = User.objects.get(id=request.user.id)

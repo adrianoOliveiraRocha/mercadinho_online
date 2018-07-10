@@ -1,0 +1,71 @@
+{% extends 'dashboard_client/base.html' %}
+
+
+{% block superior %}
+
+<!-- esse bloco está à cima do menu -->
+
+{% endblock %} 
+
+<!-- o menu está no base.html e aparece aqui -->
+
+{% block conteudo %}
+<div class="container-fluid" style="margin-top: 2%">
+
+	<div class="container" style="width: 100%">
+	  {% if messages %}
+	    {% for message in messages %}
+	        <div class="alert alert-warning alert-dismissable">
+	          <button type="button" class="close" data-dismiss="alert">&times;</button>
+	          {{ message }}
+	        </div>
+	    {% endfor %}
+	  {% endif %}
+	</div>
+
+	<div class="container-fluid">
+		<!-- formas de pagamento -->
+		<div class="container" 
+		style="margin-top: 5%; margin-bottom: 5%;">
+		  	<h2>Formas de Pagamento</h2>
+		  	<div class="row">
+
+			  <div class="col-sm-6">
+			    <div class="card">
+			      <div class="card-body">
+			        <h5 class="card-title">Pague com PagSeguro</h5>
+			        <p class="card-text">
+			        	Com pagseguro você pode pagar com cartão de crédito, 
+			        	cartão de débito ou boleto bancário.
+			        </p>
+			        <a href="#" class="btn btn-primary">
+			        	Pagar com PagSeguro
+			        </a>
+			      </div>
+			    </div>
+			  </div>
+
+			  <div class="col-sm-6">
+			    <div class="card">
+			      <div class="card-body">
+			        <h5 class="card-title">Pagar em Dinheiro</h5>
+			        <p class="card-text">
+			        	Você pode pagar suas compras no ato da entrega somente em 
+			        	dinheiro.
+			        </p>
+			        <a href="#" class="btn btn-primary">
+			        	Pagar na Entrega
+			        </a>
+			      </div>
+			    </div>
+			  </div>
+
+			</div>
+
+		</div>
+		<!-- fim formas de pagamento -->
+	</div>
+</div>
+{% endblock %} <!-- fim do bloco conteudo -->
+
+<!-- roda pé que está na página base.html aparece aqui -->
