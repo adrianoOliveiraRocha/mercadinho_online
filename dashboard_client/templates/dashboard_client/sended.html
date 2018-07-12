@@ -1,0 +1,45 @@
+{% extends 'dashboard_client/base.html' %}
+
+
+{% block superior %}
+
+<!-- esse bloco está à cima do menu -->
+
+{% endblock %} 
+
+<!-- o menu está no base.html e aparece aqui -->
+
+{% block conteudo %}
+<div class="container-fluid" style="margin-top: 2%">
+
+	<div class="container" style="width: 100%">
+	  {% if messages %}
+	    {% for message in messages %}
+	        <div class="alert alert-warning alert-dismissable">
+	          <button type="button" class="close" data-dismiss="alert">&times;</button>
+	          {{ message }}
+	        </div>
+	    {% endfor %}
+	  {% endif %}
+	</div>
+
+	<div class="container-fluid">
+		<!-- formas de pagamento -->
+		<div class="container" 
+		style="margin-top: 5%; margin-bottom: 5%;">
+		  	<h2>Seu pedido foi enviado</h2>
+		  	<div class="alert alert-success">
+			  <strong>Sucesso!</strong> Seu pedido foi entregue. Daqui à pouco 
+			  nosso entregador estará lhe entregando suas compras. Obrigado pela 
+			  preferência!
+			</div>
+			<a class="btn btn-primary" href="{% url 'dashboard_client:index' %}">
+				Voltar
+			</a>
+		</div>
+		<!-- fim formas de pagamento -->
+	</div>
+</div>
+{% endblock %} <!-- fim do bloco conteudo -->
+
+<!-- roda pé que está na página base.html aparece aqui -->

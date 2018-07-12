@@ -53,7 +53,8 @@
 			        	Você pode pagar suas compras no ato da entrega somente em 
 			        	dinheiro.
 			        </p>
-			        <a href="#" class="btn btn-primary">
+			        <a href="{% url 'dashboard_client:send_to_admin' order_id %}" 
+			        class="btn btn-primary">
 			        	Pagar na Entrega
 			        </a>
 			      </div>

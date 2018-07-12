@@ -73,6 +73,14 @@ class Order(models.Model):
 		choices=STATUS_ORDER, default='A') 
 	status_pg = models.CharField('Status PagSeguro', max_length=10,
 		choices=STATUS_PAGSEGURO, null=True, blank=True)
+	sended = models.BooleanField(
+		verbose_name='Enviado',
+		default=False,
+		blank=True)
+	forwarded = models.BooleanField(
+		verbose_name='Encaminhado',
+		default=False,
+		blank=True)
 
 	def __str__(self):
 		return 'Pedido realizado por {} em {}'.format(self.user, self.date)

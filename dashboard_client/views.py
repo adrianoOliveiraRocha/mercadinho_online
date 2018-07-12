@@ -32,7 +32,17 @@ def index(request):
 
 @login_required
 def send_order(request, order_id):
-	return render(request, 'dashboard_client/send_order.html')
+	context = {'order_id': order_id}
+	return render(request, 'dashboard_client/send_order.html', 
+		context)
+
+
+@login_required
+def send_to_admin(request, order_id):
+	order = Order.objects.get(id=order_id)
+	order.sended = True
+	order.save()
+	return render(request, 'dashboard_client/sended.html')
 
 
 @login_required

@@ -16,4 +16,6 @@ urlpatterns = [
 		views.cancel_order, name='cancel_order'),
 	path('send_order/<int:order_id>', views.send_order,
 		name='send_order'),
+	path('enviado/<int:order_id>', views.send_to_admin,
+		name='send_to_admin'),
 ]

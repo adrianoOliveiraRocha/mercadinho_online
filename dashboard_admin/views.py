@@ -7,6 +7,7 @@ from catalog.forms import CategoryForm, ProductForm
 from django.contrib import messages
 from core.utils import Utils
 from django.urls import reverse
+from checkout.models import Order
 
 
 @login_required
