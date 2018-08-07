@@ -14,7 +14,12 @@ from checkout.models import Order
 def index(request):
 	user = User.objects.get(id=request.user.id)
 	ordersSendeds = Order.objects.filter(sended=True)
-	context = {'orders': ordersSendeds}
+	# client = User.objects.get(id=order.user.id)
+	context = {
+		'orders': ordersSendeds, 
+
+		}
+
 	if user.is_staff:
 		return render(request, 'dashboard_admin/index.html',
 			context)
@@ -184,3 +189,8 @@ def delete_product(request, id_product):
 		"Produto deletado com sucesso!")
 	return HttpResponseRedirect(
 		reverse('dashboard_admin:show_all_products'))
+
+
+@login_required
+def order_datail(request, order_id):
+	return HttpResponse('order_id: {}'.format(order_id))

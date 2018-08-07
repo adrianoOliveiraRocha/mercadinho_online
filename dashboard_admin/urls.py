@@ -19,4 +19,6 @@ urlpatterns = [
 		name='delete_product'),
 	path('todos_os_produtos', views.show_all_products, 
 		name='show_all_products'),
+	path('detalhes_do_pedido/<int:order_id>', views.order_datail, 
+		name='order_datail')
 ]
