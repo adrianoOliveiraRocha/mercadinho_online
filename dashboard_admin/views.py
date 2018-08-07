@@ -13,8 +13,11 @@ from checkout.models import Order
 @login_required
 def index(request):
 	user = User.objects.get(id=request.user.id)
+	ordersSendeds = Order.objects.filter(sended=True)
+	context = {'orders': ordersSendeds}
 	if user.is_staff:
-		return render(request, 'dashboard_admin/index.html')
+		return render(request, 'dashboard_admin/index.html',
+			context)
 	else:
 		return HttpResponse('Acesso não permitido!')
 
