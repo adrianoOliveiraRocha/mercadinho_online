@@ -42,6 +42,20 @@ class OrderManager(models.Manager):
 				hasOrderItems = True
 		return hasOrderItems
 
+	def valueTotalOfOrder(self, order_id):
+		from django.db import connection
+		total_value = None
+		with connection.cursor() as cursor:
+			cursor.execute("""
+				select SUM(checkout_orderitem.value) as total_value
+				from checkout_order, checkout_orderitem
+				where checkout_order.id = {} 
+				and checkout_order.id = checkout_orderitem.order_id
+				""".format(order_id))
+			total_value = float(cursor.fetchone()[0]) 
+			
+		return total_value
+
 
 class Order(models.Model):
 	date = models.DateField(default=date.today, editable=False)

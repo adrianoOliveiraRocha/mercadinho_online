@@ -40,6 +40,7 @@ def send_order(request, order_id):
 @login_required
 def send_to_admin(request, order_id):
 	order = Order.objects.get(id=order_id)
+	order.value = Order.orderManager.valueTotalOfOrder(order.id)
 	order.sended = True
 	order.save()
 	return render(request, 'dashboard_client/sended.html')
