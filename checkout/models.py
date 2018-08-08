@@ -95,13 +95,7 @@ class Order(models.Model):
 	objects = models.Manager() # The default manager.
 	orderManager = OrderManager()
 
-	@staticmethod
-	def get_total(order_id):
-		items = OrderItem.objects.filter(order=order_id)
-		total = 0
-		for item in items:
-			total = total + (float(item.quantity) * float(item.value))
-		return total
+	
 
 	
 class OrderItem(models.Model):
@@ -116,4 +110,12 @@ class OrderItem(models.Model):
 		verbose_name = 'Ítem de Pedido'
 		verbose_name_plural = 'Ítens de Pedido'
 		ordering = ['order']
+
+	@staticmethod
+	def get_total(order_id):
+		items = OrderItem.objects.filter(order=order_id)
+		total = 0
+		for item in items:
+			total = total + item.value
+		return total
 
