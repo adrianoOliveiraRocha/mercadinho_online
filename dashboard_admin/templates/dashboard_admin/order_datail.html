@@ -1,0 +1,159 @@
+{% extends 'dashboard_admin/base.html' %}
+{% load da_tags %}
+
+{% block superior %}
+
+<!-- esse bloco está à cima do menu -->
+
+{% endblock %} 
+
+{% block conteudo %}
+<div class="panel panel-default table-two-column">
+
+	<div class="container">
+	  {% if messages %}
+	    {% for message in messages %}
+	        <div class="alert alert-warning alert-dismissable">
+	          <button type="button" class="close" data-dismiss="alert">&times;</button>
+	          {{ message }}
+	        </div>
+	    {% endfor %}
+	  {% endif %}
+	</div>
+
+	{% block dashboard_title %}
+	<div class="panel-heading" style="margin: 2%;">
+		<h5>Área Administrativa -> Detalhes do Pedido </h5>
+	</div>
+	{% endblock %}
+
+	<div class="panel-body">
+		<h3>Pedido feito por {{order.user}} em {{order.date}} </h3>
+		<table class="table">
+			<tr>
+				<td>ID</td><td>{{order.id}}</td>
+			</tr>
+			<tr>
+				<td>Data</td><td>{{order.date}}</td>
+			</tr>
+			<tr>
+				<td>Valor R$</td><td>{{order.value}}</td>
+			</tr>
+			<tr>
+				<td>Cliente</td>
+				<td>
+					<a href="#" 
+						title="Informações do Cliente"
+						data-toggle="modal"
+						data-target="#myModal">
+						{{ order.user }}
+					</a>
+				</td>
+			</tr>
+			<tr>
+				<td>Encaminhado</td><td>{{order.forwarded}}</td>
+			</tr>
+			<tr>
+				<td>Id da Transação</td>
+				<td title="Válido apenas para pedidos pagos atrvés do PagSeguro">
+
+					{% if order.transaction_id %}
+						{{order.transaction_id}}
+					{% else %}
+						Não Existe
+					{% endif %}
+					
+				</td>
+			</tr>
+			<tr>
+				<td>Status do Pedido</td>
+				<td>
+					{% show_status order.status_order %}
+				</td>
+			</tr>
+			<tr>
+				<td>Status PagSeguro</td>
+				<td title="Válido apenas para pedidos pagos atrvés do PagSeguro">
+					{% if order.status_pg %}
+						{% show_status_pg order.status_pg %}
+					{% else %}
+						Não Existe
+					{% endif %}
+				</td>
+			</tr>
+		</table>
+
+		<h3 style="margin-top: 5%;">Ítems do Pedido</h3>
+		<table class="table">
+			{% for item in items %}
+			<tr>
+				<td>Produto</td>
+				<td>{{ item.product }}</td>
+			</tr>
+			<tr>
+				<td>Quantidade</td>
+				<td>{{ item.quantity }}</td>
+			</tr>
+			<tr>
+				<td>Preço</td>
+				<td>{{ item.value }}</td>
+			</tr>
+			<tr>
+				<td>Valor R$</td>
+				<td>{% get_value item.quantity item.value %}</td>
+			</tr>
+			<tr>
+				<td></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td></td>
+			</tr>
+			{% endfor %}
+		</table>
+
+		<!-- The Modal -->
+		<div class="modal" id="myModal">
+		  	<div class="modal-dialog">
+		    	<div class="modal-content">
+
+			      <!-- Modal Header -->
+			      <div class="modal-header">
+			        <h4 class="modal-title">
+			        	Informações do Cliente
+			        </h4>
+			        <button type="button" class="close" data-dismiss="modal">&times;</button>
+			      </div>
+
+			      <!-- Modal body -->
+			      <div class="modal-body">
+			        <table class="table">
+			        	<tr>
+		        			<td>Nome</td><td>{{ order.user }}</td>
+		        		</tr>
+		        		<tr>
+		        			<td>Email</td><td>{{ order.user.email }}</td>
+		        		</tr>
+		        		<tr>
+		        			<td>Telefone</td>
+		        			<td>{{ order.user.telefone }}</td>
+		        		</tr>
+		        		
+			        </table>
+			      </div>
+
+			      <!-- Modal footer -->
+			      <div class="modal-footer">
+			        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+			      </div>
+
+		    </div>
+		  </div>
+		</div>
+	  <!-- end modal frame -->
+
+		 
+	</div>
+</div>
+{% endblock %} <!-- fim do bloco conteudo -->

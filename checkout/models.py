@@ -4,8 +4,8 @@ from datetime import date
 from accounts.models import User
 
 STATUS_ORDER = (
-			('A', 'active'), 
-			('I', 'INACTIVE'),
+			('A', 'Ativo'), 
+			('I', 'Inativo'),
 		)
 
 STATUS_PAGSEGURO = (
@@ -16,18 +16,6 @@ STATUS_PAGSEGURO = (
 
 
 class OrderManager(models.Manager):
-	def get_total(self, order_id):
-		from django.db import connection
-		total = 0
-		with connection.cursor() as cursor:
-			cursor.execute("""
-				select sum(checkout_orderitem.value) as total
-				from checkout_orderitem 
-				where checkout_orderitem.order_id  =  {}
-				""".format(order_id))
-			total = cursor.fetchone()
-		return total[0]
-
 	def hasOrderItem(self, order_id):
 		from django.db import connection
 		hasOrderItems = False
@@ -106,6 +94,14 @@ class Order(models.Model):
 
 	objects = models.Manager() # The default manager.
 	orderManager = OrderManager()
+
+	@staticmethod
+	def get_total(order_id):
+		items = OrderItem.objects.filter(order=order_id)
+		total = 0
+		for item in items:
+			total = total + (float(item.quantity) * float(item.value))
+		return total
 
 	
 class OrderItem(models.Model):

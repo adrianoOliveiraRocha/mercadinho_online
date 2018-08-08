@@ -7,7 +7,7 @@ from catalog.forms import CategoryForm, ProductForm
 from django.contrib import messages
 from core.utils import Utils
 from django.urls import reverse
-from checkout.models import Order
+from checkout.models import Order, OrderItem
 
 
 @login_required
@@ -193,4 +193,12 @@ def delete_product(request, id_product):
 
 @login_required
 def order_datail(request, order_id):
-	return HttpResponse('order_id: {}'.format(order_id))
+	order = Order.objects.get(id=order_id)
+	items = OrderItem.objects.filter(order=order_id)
+	context = {
+		'order': order,
+		'items': items
+		}
+	return render(request, 'dashboard_admin/order_datail.html',
+		context)
+	
