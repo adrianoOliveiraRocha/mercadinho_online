@@ -67,6 +67,11 @@
 		  </table>
 		</div>
 		
+		{% if order.sended %}
+			<div class="alert alert-success">
+			  Seu pedido foi <strong>enviado</strong> com sucesso
+			</div>
+		{% else %}
 		<div class="container">
 		  <a type="button" class="btn btn-primary"
 		  href="{% url 'dashboard_client:send_order' order.id %}">
@@ -77,6 +82,7 @@
 		  	Cancelar
 		  </a>    
 		</div>
+		{% endif %}
 
 		{% else %}
 		<div>Seu Carrinho está vazio</div>

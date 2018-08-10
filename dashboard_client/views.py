@@ -16,13 +16,14 @@ def index(request):
 	# search for order that had status active
 	order = Order.objects.filter(user__id=request.user.id).\
 	filter(status_order='A').first()
-	
+	order.value = Order.get_total(order.id)
+	order.save()
 	context = {}
 
 	if order:
 		context['order'] = order
 		context['orderItems'] = OrderItem.objects.filter(order__id=order.id)
-		context['total'] = Order.get_total(order.id)
+		context['total'] = order.value
 	else:
 		messages.warning(request, 'Você não tem nenhum pedido ativo')
 
@@ -41,7 +42,7 @@ def send_order(request, order_id):
 def send_to_admin(request, order_id):
 	order = Order.objects.get(id=order_id)
 	items = OrderItem.objects.filter(order=order_id)
-	order.value = Order.get_total(order_id)
+	order.value = Order.get_total(order.id)
 	order.sended = True
 	order.save()
 	return render(request, 'dashboard_client/sended.html')

@@ -96,11 +96,11 @@
 			</tr>
 			<tr>
 				<td>Preço</td>
-				<td>{{ item.value }}</td>
+				<td>{{ item.product.value }}</td>
 			</tr>
 			<tr>
 				<td>Valor R$</td>
-				<td>{% get_value item.quantity item.value %}</td>
+				<td>{% get_value item.quantity item.product.value %}</td>
 			</tr>
 			<tr>
 				<td></td>
