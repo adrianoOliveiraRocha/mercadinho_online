@@ -9,6 +9,7 @@ def show_status(status):
 	elif status == 'I':
 		return 'Inativo'
 
+
 @register.simple_tag
 def show_status_pg(status):
 	if status == '1':
@@ -22,7 +23,15 @@ def show_status_pg(status):
 	elif status == '5':
 		return 'Cancelado'
 
+
 @register.simple_tag
 def get_value(quantity, value):
 	return float(quantity) * float(value)
-	
+
+
+@register.simple_tag
+def forwarded(value):
+	if value:
+		return 'Encaminhado'
+	else:
+		return 'Não Encaminhado'	

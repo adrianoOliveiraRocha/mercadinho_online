@@ -20,11 +20,17 @@
 	    {% endfor %}
 	  {% endif %}
 	</div>
+
 	{% if order.forwarded %}
 	<div class="alert alert-success" style="margin-top: 3%">
-	  Esse Pedido foi <strong>encaminhado</strong>.
+	  Esse Pedido <strong>já foi encaminhado</strong>.
+	</div>
+	{% else %}
+	<div class="alert alert-warning" style="margin-top: 3%">
+	  Esse Pedido <strong>ainda não foi encaminhado</strong>.
 	</div>
 	{% endif %}
+
 	{% block dashboard_title %}
 	<div class="panel-heading" style="margin: 2%;">
 		<h5>Área Administrativa -> Detalhes do Pedido </h5>
@@ -124,7 +130,7 @@
             
             <a href="{% url 'dashboard_admin:forward' order.id %}" 
             class="btn btn-primary"> 
-	        	Encaminhar
+	        	Marcar como Encaminhado
 	        </a>
             
           </div>

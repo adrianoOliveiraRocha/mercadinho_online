@@ -1,6 +1,5 @@
 {% extends 'dashboard_admin/base.html' %}
 {% load widget_tweaks %}
-{% load da_tags %}
 
 {% block superior %}
 
@@ -39,16 +38,15 @@
 		        <th>ID</th>
 		        <th>Data</th>
 		        <th>Valor R$</th>
-		        <th>Situação</th>
+		        <th>Cliente</th>
 		      </tr>
 		    </thead>
 
 		    <tfoot>
 		      <tr>
-		      	<th>ID</th>
 		        <th>Data</th>
 		        <th>Valor R$</th>
-		        <th>Situação</th>
+		        <th>Cliente</th>
 		      </tr>
 		    </tfoot>
 
@@ -71,13 +69,8 @@
 						{{ order.value }}
 					</td>
 
-					<td style="text-align: center;  
-					{% if order.forwarded %}
-						color: blue
-					{% else %}
-						color: red
-					 {% endif %} ">
-						{% forwarded order.forwarded %}
+					<td style="text-align: center;">
+						{{ order.user }}
 					</td>
 
 				</tr>

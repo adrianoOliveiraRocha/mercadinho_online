@@ -114,12 +114,17 @@
 				Pedidos
 				</a>
 				<div class="dropdown-menu">
-					<a class="dropdown-item" href="#">
-						Pedidos Recebidos
+					<a class="dropdown-item" 
+					href="{% url 'dashboard_admin:index' %}">
+						Todos
 					</a>
 					<a class="dropdown-item" 
-					href="#">
-						Pedidos Encaminhados
+					href="{% url 'dashboard_admin:forwarded' %}">
+						Encaminhados
+					</a>
+					<a class="dropdown-item" 
+					href="{% url 'dashboard_admin:no_forwarded' %}">
+						Não Encaminhados
 					</a>
 				</div>
 			</li>

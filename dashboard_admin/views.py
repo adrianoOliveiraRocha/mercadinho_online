@@ -213,3 +213,24 @@ def forward(request, order_id):
 	url = '/area_administrativa/detalhes_do_pedido/{}'.format(order_id)
 	return HttpResponseRedirect(resolve_url(url))
 
+
+@login_required
+def forwarded(request):
+	orders = Order.objects.filter(forwarded=True)
+	context = {
+		'orders': orders
+	}
+
+	return render(request, 'dashboard_admin/forwarded.html',
+		context)
+
+
+@login_required
+def no_forwarded(request):
+	orders = Order.objects.filter(forwarded=False)
+	context = {
+		'orders': orders
+	}
+
+	return render(request, 'dashboard_admin/no_forwarded.html',
+		context)

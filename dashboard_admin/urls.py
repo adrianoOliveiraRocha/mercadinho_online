@@ -22,4 +22,6 @@ urlpatterns = [
 	path('detalhes_do_pedido/<int:order_id>', views.order_datail, 
 		name='order_datail'),
 	path('encaminhar/<int:order_id>', views.forward, name='forward'),
+	path('encaminhados', views.forwarded, name='forwarded'),
+	path('nao_encaminhados', views.no_forwarded, name='no_forwarded'),
 ]
