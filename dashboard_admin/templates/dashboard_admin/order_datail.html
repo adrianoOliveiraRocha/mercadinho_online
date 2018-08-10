@@ -20,7 +20,11 @@
 	    {% endfor %}
 	  {% endif %}
 	</div>
-
+	{% if order.forwarded %}
+	<div class="alert alert-success" style="margin-top: 3%">
+	  Esse Pedido foi <strong>encaminhado</strong>.
+	</div>
+	{% endif %}
 	{% block dashboard_title %}
 	<div class="panel-heading" style="margin: 2%;">
 		<h5>Área Administrativa -> Detalhes do Pedido </h5>
@@ -28,6 +32,7 @@
 	{% endblock %}
 
 	<div class="panel-body">
+
 		<h3>Pedido feito por {{order.user}} em {{order.date}} </h3>
 		<table class="table">
 			<tr>
@@ -113,6 +118,19 @@
 			{% endfor %}
 		</table>
 
+		{% if not order.forwarded %}
+		<div class="form-group">
+          <div class="col-md-9 col-md-offset-3">
+            
+            <a href="{% url 'dashboard_admin:forward' order.id %}" 
+            class="btn btn-primary"> 
+	        	Encaminhar
+	        </a>
+            
+          </div>
+        </div>
+        {% endif %}
+
 		<!-- The Modal -->
 		<div class="modal" id="myModal">
 		  	<div class="modal-dialog">
@@ -152,8 +170,6 @@
 		  </div>
 		</div>
 	  <!-- end modal frame -->
-
-		 
-	</div>
+ 	</div>
 </div>
 {% endblock %} <!-- fim do bloco conteudo -->

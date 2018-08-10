@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, resolve_url
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseRedirect
 from accounts.models import User
@@ -202,3 +202,14 @@ def order_datail(request, order_id):
 	return render(request, 'dashboard_admin/order_datail.html',
 		context)
 	
+
+@login_required
+def forward(request, order_id):
+	order = Order.objects.get(id=order_id)
+	order.forwarded = True
+	order.save()
+	messages.success(request, 
+		"Pedido Encaminhado!")
+	url = '/area_administrativa/detalhes_do_pedido/{}'.format(order_id)
+	return HttpResponseRedirect(resolve_url(url))
+
