@@ -77,13 +77,10 @@ Configure /etc/apache2/sites-available/000-default.conf
 	WSGIDaemonProcess djangoapache python-home=/var/www/html/Python/djangoapache python-path=/var/www/html/djangoapache
 	WSGIProcessGroup djangoapache
 	WSGIScriptAlias / /var/www/html/djangoapache/djangoapache/wsgi.py
-	
-	
 
 </VirtualHost>
-
-
-
+	
+	
 In this case, this app is in port 80
 
 
