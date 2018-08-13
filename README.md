@@ -23,6 +23,7 @@ problems with permissions
 Configure /etc/apache2/sites-available/000-default.conf
 
 <VirtualHost *:80>
+
 	<Directory /var/www/html>
                 Options Indexes FollowSymLinks MultiViews
                 AllowOverride All
@@ -31,8 +32,8 @@ Configure /etc/apache2/sites-available/000-default.conf
 	</Directory>
 
 	<Directory /var/www/html/>
-        	AllowOverride All
-   	 </Directory>
+        AllowOverride All
+    </Directory>
     
 	# The ServerName directive sets the request scheme, hostname and port that
 	# the server uses to identify itself. This is used when creating
@@ -78,6 +79,8 @@ Configure /etc/apache2/sites-available/000-default.conf
 	WSGIScriptAlias / /var/www/html/djangoapache/djangoapache/wsgi.py
 
 </VirtualHost>
+
+
 
 In this case, this app is in port 80
 
