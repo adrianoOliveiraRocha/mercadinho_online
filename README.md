@@ -1,7 +1,9 @@
 # mercadinho_online
 
 
-Config django project with apache2
+# Config django project with apache2
+
+
 conf: sudo gedit /etc/apache2/sites-available/000-default.conf
 
 logs: sudo gedit /var/log/apache2/error.log
