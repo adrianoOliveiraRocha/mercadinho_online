@@ -31,8 +31,8 @@ Configure /etc/apache2/sites-available/000-default.conf
 	</Directory>
 
 	<Directory /var/www/html/>
-        AllowOverride All
-    </Directory>
+        	AllowOverride All
+   	 </Directory>
     
 	# The ServerName directive sets the request scheme, hostname and port that
 	# the server uses to identify itself. This is used when creating
@@ -79,13 +79,7 @@ Configure /etc/apache2/sites-available/000-default.conf
 
 </VirtualHost>
 
-# vim: syntax=apache ts=4 sw=4 sts=4 sr noet
-
 In this case, this app is in port 80
 
-
-
-# you need this command:
-# sudo apt install apache2-dev
 
 
