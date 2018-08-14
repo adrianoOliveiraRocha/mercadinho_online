@@ -83,5 +83,26 @@ Configure /etc/apache2/sites-available/000-default.conf
 	
 In this case, this app is in port 80
 
+# How listen other webapp in other port
+
+You need create a new virtualhost in file /etc/apache2/sites-enabled/000-default.conf
+
+<VirtualHost 127.0.0.1:81>
+	ServerName mercadinho_online
+
+	ServerAdmin adr@localhost
+	DocumentRoot /var/www/domain-81
+
+	ErrorLog ${APACHE_LOG_DIR}/error81.log
+	CustomLog ${APACHE_LOG_DIR}/access81.log combined
+
+</VirtualHost>
+Now, you need config the ports in the file /etc/apache2/ports.conf
+This config will allow apache listen in two ports:
+  Listen 127.0.0.1:80
+  Listen 127.0.0.1:81
+The addres 127.0.0.1:81 listen your neww virtualhost
+
+
 
 
