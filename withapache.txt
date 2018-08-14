@@ -1,5 +1,13 @@
 withapache.txt
 
+Please, Install Packages from the Ubuntu Repositories: 
+sudo apt-get update 
+sudo apt-get install python3-pip apache2 libapache2-mod-wsgi-py3
+
+
+Mercadinho Online In Port 81
+Create a directory /var/www/domain-81. You will put your project withen this 
+directory
 in flile /etc/apache2/sites-enabled/000-default.conf:
 <VirtualHost 127.0.0.1:81>
 	ServerName mercadinho_online
@@ -7,8 +15,26 @@ in flile /etc/apache2/sites-enabled/000-default.conf:
 	ServerAdmin adr@localhost
 	DocumentRoot /var/www/domain-81
 
-	ErrorLog ${APACHE_LOG_DIR}/error81.log
-	CustomLog ${APACHE_LOG_DIR}/access81.log combined
+	ErrorLog ${APACHE_LOG_DIR}/error.log
+	CustomLog ${APACHE_LOG_DIR}/access.log combined
+	
+	Alias /static /var/www/domain-81/mercadinho_online/staticfiles
+	<Directory /var/www/domain-81/mercadinho_online/staticfiles>
+		Require all granted
+	</Directory>
+	
+	<Directory /var/www/domain-81/mercadinho_online/mercadinho_online>
+		<Files wsgi.py>
+			Require all granted
+		</Files>
+	</Directory>
+	
+	# addres of virtual env	
+	WSGIDaemonProcess mercadinho_online python-home=/var/www/domain-81/mercadinho_online/mo python-path=/var/www/domain-81/mercadinho_online
+	# project name
+	WSGIProcessGroup mercadinho_online 
+	# local of wsgi.py
+	WSGIScriptAlias / /var/www/domain-81/mercadinho_online/mercadinho_online/wsgi.py
 
 </VirtualHost>
 
@@ -17,3 +43,5 @@ in flile /etc/apache2/sites-enabled/000-default.conf:
 in file /etc/apache2/ports.conf
 Listen 127.0.0.1:80
 Listen 127.0.0.1:81
+
+Sure this IP addres change in a new host
