@@ -1,0 +1,19 @@
+withapache.txt
+
+in flile /etc/apache2/sites-enabled/000-default.conf:
+<VirtualHost 127.0.0.1:81>
+	ServerName mercadinho_online
+
+	ServerAdmin adr@localhost
+	DocumentRoot /var/www/domain-81
+
+	ErrorLog ${APACHE_LOG_DIR}/error81.log
+	CustomLog ${APACHE_LOG_DIR}/access81.log combined
+
+</VirtualHost>
+
+
+
+in file /etc/apache2/ports.conf
+Listen 127.0.0.1:80
+Listen 127.0.0.1:81
