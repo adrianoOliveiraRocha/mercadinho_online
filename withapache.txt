@@ -8,7 +8,11 @@ sudo apt-get install python3-pip apache2 libapache2-mod-wsgi-py3
 Mercadinho Online In Port 81
 Create a directory /var/www/domain-81. You will put your project withen this 
 directory
+
+
 in flile /etc/apache2/sites-enabled/000-default.conf:
+
+# mercadinho online in port 81
 <VirtualHost 127.0.0.1:81>
 	ServerName mercadinho_online
 
@@ -18,8 +22,15 @@ in flile /etc/apache2/sites-enabled/000-default.conf:
 	ErrorLog ${APACHE_LOG_DIR}/error.log
 	CustomLog ${APACHE_LOG_DIR}/access.log combined
 	
+	# handle static files
 	Alias /static /var/www/domain-81/mercadinho_online/staticfiles
 	<Directory /var/www/domain-81/mercadinho_online/staticfiles>
+		Require all granted
+	</Directory>
+	
+	# handle media files
+	Alias /media /var/www/domain-81/mercadinho_online/media
+	<Directory /var/www/domain-81/mercadinho_online/media>
 		Require all granted
 	</Directory>
 	
@@ -29,11 +40,8 @@ in flile /etc/apache2/sites-enabled/000-default.conf:
 		</Files>
 	</Directory>
 	
-	# addres of virtual env	
 	WSGIDaemonProcess mercadinho_online python-home=/var/www/domain-81/mercadinho_online/mo python-path=/var/www/domain-81/mercadinho_online
-	# project name
-	WSGIProcessGroup mercadinho_online 
-	# local of wsgi.py
+	WSGIProcessGroup mercadinho_online
 	WSGIScriptAlias / /var/www/domain-81/mercadinho_online/mercadinho_online/wsgi.py
 
 </VirtualHost>
