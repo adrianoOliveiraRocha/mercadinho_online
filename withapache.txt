@@ -45,3 +45,25 @@ Listen 127.0.0.1:80
 Listen 127.0.0.1:81
 
 Sure this IP addres change in a new host
+
+Tips:
+Allow connections to the development server by typing:
+sudo ufw allow 8000
+
+Permissions for databases:
+chmod 664 ~/myproject/db.sqlite3
+
+Give the group Apache runs under, the www-data group, group ownership of the file:
+sudo chown :www-data ~/myproject/db.sqlite3
+
+Give the Apache group ownership over the database's parent directory:
+sudo chown :www-data ~/myproject
+
+Give permission to Apache in our firewall:
+sudo ufw allow 'Apache Full'
+
+Check your Apache files to make sure you did not make any syntax errors:
+sudo apache2ctl configtest
+
+Restart server:
+sudo systemctl restart apache2
