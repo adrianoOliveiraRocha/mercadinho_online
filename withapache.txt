@@ -47,6 +47,9 @@ Listen 127.0.0.1:81
 Sure this IP addres change in a new host
 
 Tips:
+
+No problem using static files here because who is serving is the Apache
+
 Allow connections to the development server by typing:
 sudo ufw allow 8000
 
