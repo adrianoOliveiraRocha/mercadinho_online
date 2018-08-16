@@ -30,6 +30,19 @@ class OrderManager(models.Manager):
 				hasOrderItems = True
 		return hasOrderItems
 
+	def howMayOrderItem(self, order_id):
+		from django.db import connection
+		howMany = 0
+		with connection.cursor() as cursor:
+			cursor.execute("""
+				select COUNT(checkout_orderitem.id)
+				from checkout_order, checkout_orderitem
+				where checkout_order.id = {} 
+				and checkout_order.id = checkout_orderitem.order_id
+				""".format(order_id))
+			howMany = int(cursor.fetchone()[0])
+		return howMany
+
 	def valueTotalOfOrder(self, order_id):
 		from django.db import connection
 		total_value = None
@@ -97,14 +110,22 @@ class Order(models.Model):
 
 	@staticmethod
 	def get_total(order_id):
-		print('order_id received: {}'.format(order_id))
 		items = OrderItem.objects.filter(order__id=order_id)
 		total = 0
 		for item in items:
 			total = total + item.value
 		return total
 
-	
+	@staticmethod
+	def getNoForwardeds(ordersSendeds):
+		""" verify how many orders does not forwarded """
+		total = 0
+		for order in ordersSendeds:
+			if order.forwarded:
+				total = total + 1
+		return total
+
+		
 class OrderItem(models.Model):
 	quantity = models.PositiveSmallIntegerField(verbose_name='Quantidade',
 		default=1, editable=False)

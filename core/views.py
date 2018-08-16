@@ -7,11 +7,13 @@ from django.urls import reverse_lazy
 from catalog.models import Category, Product
 from django.core.paginator import Paginator
 from django.contrib import messages
+from checkout.models import Order
 
 User = get_user_model()
 
 def index(request):
 	# request.session.clear()
+	print('core/index')
 	categories = Category.objects.all()
 	product_list = Product.objects.all()
 	paginator = Paginator(product_list, 6)
@@ -25,12 +27,16 @@ def index(request):
 		'categories': categories,
 		'products': products,
 		'paginator': paginator,
+
 	}
 
-	if 'order_id' in request.session:
-		print(request.session['howItems'])
-	else:
-		print("there isn't items in the cart")
+	if request.user.is_authenticated:
+		order = Order.objects.filter(sended=False)
+		if order:
+			request.session['order_id'] = order.id
+			request.session['howItems'] = Order.orderManager.hasOrderItem(order.id)
+		else:
+			print("There ins't order")
 
 	return render(request, 'core/index.html',
 		context)

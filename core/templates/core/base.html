@@ -116,7 +116,12 @@
 
 			{% endif %}
 
+
+			
+		</ul>
+		<ul class="navbar-nav" style="margin-left: 30%;">
 			{% if request.session.howItems %}
+			
 			<li class="nav-item">
 				<a class="nav-link" 
 				href="{% url 'dashboard_client:index' %}">
@@ -127,7 +132,6 @@
 			</li>
 			
 			{% endif %}
-			
 		</ul>
 	</nav> 
 	{% endblock %} <!-- fim do bloco menu -->

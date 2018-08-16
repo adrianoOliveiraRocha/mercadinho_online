@@ -14,10 +14,11 @@ from checkout.models import Order, OrderItem
 def index(request):
 	user = User.objects.get(id=request.user.id)
 	ordersSendeds = Order.objects.filter(sended=True)
-	# client = User.objects.get(id=order.user.id)
+	no_forwarded = Order.getNoForwardeds(ordersSendeds)
+	print(no_forwarded)
 	context = {
-		'orders': ordersSendeds, 
-
+		'orders': ordersSendeds,
+		'no_forwarded': no_forwarded, 
 		}
 
 	if user.is_staff:

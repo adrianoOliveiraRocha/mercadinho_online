@@ -16,11 +16,12 @@ def index(request):
 	# search for order that had status active
 	order = Order.objects.filter(user__id=request.user.id).\
 	filter(status_order='A').first()
-	order.value = Order.get_total(order.id)
-	order.save()
 	context = {}
 
 	if order:
+		order.value = Order.get_total(order.id)
+		order.save()
+		
 		context['order'] = order
 		context['orderItems'] = OrderItem.objects.filter(order__id=order.id)
 		context['total'] = order.value
