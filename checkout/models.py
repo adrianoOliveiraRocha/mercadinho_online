@@ -4,7 +4,7 @@ from datetime import date
 from accounts.models import User
 
 STATUS_ORDER = (
-			('A', 'Ativo'), 
+			('A', 'Ativo'), # appears to client admin as not sended
 			('I', 'Inativo'),
 		)
 

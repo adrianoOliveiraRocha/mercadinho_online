@@ -104,6 +104,26 @@
 				</div>
 			</li>
 
+			<!-- Dropdown -->
+			<li class="nav-item dropdown">
+				<a class="nav-link dropdown-toggle" href="#" id="navbardrop" 
+				data-toggle="dropdown">
+				Pedidos
+				</a>
+				<div class="dropdown-menu">
+					<a class="dropdown-item" title="Pedidos que ainda não foram entregues" 
+					href="{% url 'dashboard_client:sended_orders' %}">
+						Pedidos Enviados
+					</a>
+
+					<a class="dropdown-item" 
+					href="#" title="Pedidos que já foram entregues">
+						Pedidos Recebidos
+					</a>
+
+				</div>
+			</li>
+
 			<li class="nav-item">
 				<a class="nav-link" href="{% url 'core:index' %}">
 					Ir para o Site

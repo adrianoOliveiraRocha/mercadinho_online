@@ -34,18 +34,14 @@ def index(request):
 
 @login_required
 def send_order(request, order_id):
-	context = {'order_id': order_id}
-	return render(request, 'dashboard_client/send_order.html', 
-		context)
-
-
-@login_required
-def send_to_admin(request, order_id):
 	order = Order.objects.get(id=order_id)
 	items = OrderItem.objects.filter(order=order_id)
 	order.value = Order.get_total(order.id)
 	order.sended = True
+	order.status_order = 'I' # dont appears in dash board as not sended 
 	order.save()
+	del request.session['order_id']
+	del request.session['howItems']
 	return render(request, 'dashboard_client/sended.html')
 
 
@@ -135,3 +131,25 @@ def cancel_order(request, order_id):
 	del request.session['order_id']
 	del request.session['howItems']
 	return HttpResponseRedirect(reverse('dashboard_client:index'))
+
+@login_required
+def sended_orders(request):
+	sended_orders = Order.objects.filter(sended=True).\
+	filter(forwarded=False).filter(user__id=request.user.id)
+	context = {
+		'sended_orders': sended_orders,
+	}
+	return render(request, 'dashboard_client/sended_orders.html',
+		context)
+
+
+@login_required
+def order_detail(request, order_id):
+	order = Order.objects.get(id=order_id)
+	items = OrderItem.objects.filter(order__id=order_id)
+	context = {
+		'order': order,
+		'items': items,
+	}
+	return render(request, 'dashboard_client/order_detail.html',
+		context)

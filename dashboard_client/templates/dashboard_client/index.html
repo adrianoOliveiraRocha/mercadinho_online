@@ -27,60 +27,63 @@
 		
 		<div class="container">
 		{% if order %} <!-- Order exists -->
-		
+			
 			{% if order.sended == False %} <!-- Exists order no sended -->
 
-				<h2>Data do Pedido: {{order.date}}</h2>
-				<table class="table table-hover">
-					<thead>
-				      <tr>
-				        <th>Produto</th>
-				        <th>Preço</th>
-				        <th>Quantidade</th>
-				        <th>Valor R$</th>
-				        <th></th>
-				      </tr>
-				    </thead>
+			<h2>Data do Pedido: {{order.date}}</h2>
+			<table class="table table-hover">
+				<thead>
+			      <tr>
+			        <th>Produto</th>
+			        <th>Preço</th>
+			        <th>Quantidade</th>
+			        <th>Valor R$</th>
+			        <th></th>
+			      </tr>
+			    </thead>
 
-				  	<tbody>
-				  		{% for orderItem in orderItems %}
-				  		<tr>
-				  			<td>{{orderItem.product}}</td>
-				  			<td>{{orderItem.product.value}}</td>
-				  			<td title="Alterar a Quantidade" 
-						        id='{{orderItem.id}}'>
-					        	<a href="#" 
-					        	onclick="alterQuantity('{{orderItem.id}}');">
-					        		{{orderItem.quantity}} 
-					        	</a>
-						     </td>
-						     <td>{{orderItem.value}}</td>
-						     <td>
-						     	<a href="{% url 'dashboard_client:delete_orderitem' orderItem.id %}"
-						     	type="button" class="btn btn-danger">
-						     		Deletar
-						     	</a>
-						     </td>
-				  		</tr>
-				  		{% endfor %}
-				  	</tbody>
-				  	</table>
-					<table class="table">
-						<td><h3>Total R$</h3></td>
-						<td><h3>R$ {{total}}</h3></td>
-					</table>
+			  	<tbody>
+			  		{% for orderItem in orderItems %}
+			  		<tr>
+			  			<td>{{orderItem.product}}</td>
+			  			<td>{{orderItem.product.value}}</td>
+			  			<td title="Alterar a Quantidade" 
+					        id='{{orderItem.id}}'>
+				        	<a href="#" 
+				        	onclick="alterQuantity('{{orderItem.id}}');">
+				        		{{orderItem.quantity}} 
+				        	</a>
+					     </td>
+					     <td>{{orderItem.value}}</td>
+					     <td>
+					     	<a href="{% url 'dashboard_client:delete_orderitem' orderItem.id %}"
+					     	type="button" class="btn btn-danger">
+					     		Deletar
+					     	</a>
+					     </td>
+			  		</tr>
+			  		{% endfor %}
+			  	</tbody>
+			</table>
+			<table class="table">
+				<td><h3>Total R$</h3></td>
+				<td><h3>R$ {{total}}</h3></td>
+			</table>
 
-					<div class="container">
-					  <a type="button" class="btn btn-primary"
-					  href="{% url 'dashboard_client:send_order' order.id %}">
-					  	Enviar Pedido
-					  </a>
-					  <a type="button" class="btn btn-warning" 
-					  href="{% url 'dashboard_client:cancel_order' order.id %}">
-					  	Cancelar
-					  </a>    
-					</div>
-
+			<div class="container">
+			  <a type="button" class="btn btn-primary"
+			  href="{% url 'dashboard_client:send_order' order.id %}">
+			  	Enviar Pedido
+			  </a>
+			  <a type="button" class="btn btn-warning" 
+			  href="{% url 'dashboard_client:cancel_order' order.id %}">
+			  	Cancelar
+			  </a>    
+			</div>
+			{% else %}
+			<div class="alert alert-warning">
+			  Você não tem nenhum pedido a enviar
+			</div>
 			{% endif %}
 				
 		{% endif %}

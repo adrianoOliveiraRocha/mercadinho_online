@@ -31,10 +31,11 @@ def index(request):
 	}
 
 	if request.user.is_authenticated:
-		order = Order.objects.filter(sended=False)
+		order = Order.objects.filter(sended=False).\
+		filter(user__id=request.user.id).first()
 		if order:
 			request.session['order_id'] = order.id
-			request.session['howItems'] = Order.orderManager.hasOrderItem(order.id)
+			request.session['howItems'] = Order.orderManager.howMayOrderItem(order.id)
 		else:
 			print("There ins't order")
 
