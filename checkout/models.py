@@ -121,7 +121,7 @@ class Order(models.Model):
 		""" verify how many orders does not forwarded """
 		total = 0
 		for order in ordersSendeds:
-			if order.forwarded:
+			if order.forwarded == False:
 				total = total + 1
 		return total
 

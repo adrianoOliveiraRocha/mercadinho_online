@@ -15,7 +15,7 @@ def index(request):
 	user = User.objects.get(id=request.user.id)
 	ordersSendeds = Order.objects.filter(sended=True)
 	no_forwarded = Order.getNoForwardeds(ordersSendeds)
-	print(no_forwarded)
+	
 	context = {
 		'orders': ordersSendeds,
 		'no_forwarded': no_forwarded, 

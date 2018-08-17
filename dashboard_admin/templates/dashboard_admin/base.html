@@ -58,10 +58,17 @@
 	    });
 	  } );
 	</script>
+
+	<script type="text/javascript">
+		function timedRefresh(timeoutPeriod) {
+		    setTimeout("location.reload(true);",timeoutPeriod);
+		}
+	</script>
+	
 {% endblock %}
 
 </head>
-<body>
+<body onload="JavaScript:timedRefresh(60000);">
 	<div class="container-fluid"> <!-- container geral -->
 		<!-- esse container envolve tudo que está dentro do body -->
 
