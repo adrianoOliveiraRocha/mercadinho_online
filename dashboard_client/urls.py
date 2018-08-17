@@ -18,6 +18,8 @@ urlpatterns = [
 		name='send_order'),
 	path('sended_orders/', views.sended_orders,
 		name='sended_orders'),
+	path('forwarded_orders/', views.forwarded_orders,
+		name='forwarded_orders'),
 	path('order_detail/<int:order_id>', views.order_detail,
 		name='order_detail'),
 		

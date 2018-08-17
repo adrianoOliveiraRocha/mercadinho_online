@@ -144,6 +144,17 @@ def sended_orders(request):
 
 
 @login_required
+def forwarded_orders(request):
+	forwarded_orders = Order.objects.filter(sended=True).\
+	filter(forwarded=True).filter(user__id=request.user.id)
+	context = {
+		'forwarded_orders': forwarded_orders,
+	}
+	return render(request, 'dashboard_client/forwarded_orders.html',
+		context)
+
+
+@login_required
 def order_detail(request, order_id):
 	order = Order.objects.get(id=order_id)
 	items = OrderItem.objects.filter(order__id=order_id)

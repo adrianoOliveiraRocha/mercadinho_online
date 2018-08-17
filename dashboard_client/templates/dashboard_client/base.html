@@ -111,14 +111,15 @@
 				Pedidos
 				</a>
 				<div class="dropdown-menu">
-					<a class="dropdown-item" title="Pedidos que ainda não foram entregues" 
+					<a class="dropdown-item" title="Pedidos que você já enviou" 
 					href="{% url 'dashboard_client:sended_orders' %}">
 						Pedidos Enviados
 					</a>
 
 					<a class="dropdown-item" 
-					href="#" title="Pedidos que já foram entregues">
-						Pedidos Recebidos
+					href="{% url 'dashboard_client:forwarded_orders' %}" 
+					title="Pedidos que já foram encaminhados">
+						Pedidos Encaminhados
 					</a>
 
 				</div>

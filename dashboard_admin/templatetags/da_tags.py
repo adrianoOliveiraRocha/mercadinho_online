@@ -32,6 +32,6 @@ def get_value(quantity, value):
 @register.simple_tag
 def forwarded(value):
 	if value:
-		return 'Encaminhado'
+		return 'Sim. Você receberá em casa daqui a alguns instantes'
 	else:
-		return 'Não Encaminhado'	
+		return 'Não'	
