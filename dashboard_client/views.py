@@ -133,13 +133,12 @@ def cancel_order(request, order_id):
 	return HttpResponseRedirect(reverse('dashboard_client:index'))
 
 @login_required
-def sended_orders(request):
-	sended_orders = Order.objects.filter(sended=True).\
-	filter(forwarded=False).filter(user__id=request.user.id)
+def my_orders(request):
+	sended_orders = Order.objects.filter(user__id=request.user.id)
 	context = {
 		'sended_orders': sended_orders,
 	}
-	return render(request, 'dashboard_client/sended_orders.html',
+	return render(request, 'dashboard_client/my_orders.html',
 		context)
 
 

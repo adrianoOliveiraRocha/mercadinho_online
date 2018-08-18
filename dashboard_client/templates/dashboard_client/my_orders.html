@@ -1,6 +1,6 @@
 {% extends 'dashboard_client/base.html' %}
 {% load widget_tweaks %}
-
+{% load dc_tags %}
 {% block superior %}
 
 <!-- esse bloco está à cima do menu -->
@@ -37,6 +37,7 @@
 		        <th>ID</th>
 		        <th>Data</th>
 		        <th>Valor R$</th>
+		        <th>Encaminhado</th>
 		      </tr>
 		    </thead>
 
@@ -45,6 +46,7 @@
 		        <th>ID</th>
 		        <th>Data</th>
 		        <th>Valor R$</th>
+		        <th>Encaminhado</th>
 		      </tr>
 		    </tfoot>
 
@@ -65,6 +67,11 @@
 
 					<td style="text-align: center;">
 						{{ order.value }}
+					</td>
+					<td style="text-align: center; 
+					{% if order.forwarded %} color: blue 
+					{% else %}color: red{% endif %}">
+						{% forwarded order.forwarded %}
 					</td>
 				</tr>
 

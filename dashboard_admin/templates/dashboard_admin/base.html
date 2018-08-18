@@ -156,13 +156,14 @@
 
 		</ul>
 
-		{% if no_forwarded %}
+		{% if request.session.no_forwarded %}
 		<ul class="navbar-nav" style="margin-left: 30%">
 			<li class="nav-item">
-				<a class="nav-link" href="#">
-					Você tem {{ no_forwarded }} pedido
-					{% if no_forwarded > 1 %}s{% endif %} 
-					não atendido{% if no_forwarded > 1 %}s{% endif %}
+				<a class="nav-link" 
+				href="{% url 'dashboard_admin:no_forwarded' %}">
+					Você tem 
+					{{ request.session.no_forwarded }} pedido{% if request.session.no_forwarded > 1 %}s{% endif %} 
+					não atendido{% if request.session.no_forwarded > 1 %}s{% endif %}
 				</a>
 			</li>
 		</ul>

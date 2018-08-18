@@ -62,36 +62,13 @@
 				</td>
 			</tr>
 			<tr>
-				<td>Encaminhado</td><td>{{order.forwarded}}</td>
-			</tr>
-			<tr>
-				<td>Id da Transação</td>
-				<td title="Válido apenas para pedidos pagos atrvés do PagSeguro">
-
-					{% if order.transaction_id %}
-						{{order.transaction_id}}
-					{% else %}
-						Não Existe
-					{% endif %}
-					
+				<td>Encaminhado</td>
+				<td style="{% if order.forwarded %} color: blue
+				{% else %} color: red {% endif %}">
+					{% forwarded order.forwarded %}
 				</td>
 			</tr>
-			<tr>
-				<td>Status do Pedido</td>
-				<td>
-					{% show_status order.status_order %}
-				</td>
-			</tr>
-			<tr>
-				<td>Status PagSeguro</td>
-				<td title="Válido apenas para pedidos pagos atrvés do PagSeguro">
-					{% if order.status_pg %}
-						{% show_status_pg order.status_pg %}
-					{% else %}
-						Não Existe
-					{% endif %}
-				</td>
-			</tr>
+						
 		</table>
 
 		<h3 style="margin-top: 5%;">Ítems do Pedido</h3>
@@ -123,9 +100,10 @@
 			</tr>
 			{% endfor %}
 		</table>
+		<h3>Total: R${{order.value}}</h3>
 
 		{% if not order.forwarded %}
-		<div class="form-group">
+		<div class="form-group" style="margin-top: 3%">
           <div class="col-md-9 col-md-offset-3">
             
             <a href="{% url 'dashboard_admin:forward' order.id %}" 

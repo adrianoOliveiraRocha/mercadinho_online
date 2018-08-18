@@ -9,17 +9,20 @@ from core.utils import Utils
 from django.urls import reverse
 from checkout.models import Order, OrderItem
 
+def noForwardedsInfo(request):
+	""" This function actualize the information about orders no forwarded and 
+	return the object orderSended. Some functions need no use this object """
+	ordersSendeds = Order.objects.filter(sended=True)
+	request.session['no_forwarded'] = Order.getNoForwardeds(ordersSendeds)
+	return ordersSendeds
 
 @login_required
 def index(request):
+	ordersSendeds = noForwardedsInfo(request)
 	user = User.objects.get(id=request.user.id)
-	ordersSendeds = Order.objects.filter(sended=True)
-	no_forwarded = Order.getNoForwardeds(ordersSendeds)
-	
 	context = {
 		'orders': ordersSendeds,
-		'no_forwarded': no_forwarded, 
-		}
+	}
 
 	if user.is_staff:
 		return render(request, 'dashboard_admin/index.html',
@@ -30,6 +33,7 @@ def index(request):
 
 @login_required
 def new_category(request):
+	noForwardedsInfo(request)
 	context = {}
 	
 	if request.method == 'GET':
@@ -51,12 +55,11 @@ def new_category(request):
 		context['form'] = form
 		return HttpResponseRedirect(
 			reverse('dashboard_admin:show_all_categories'))
-		
-	
 
 
 @login_required
 def show_all_categories(request):
+	noForwardedsInfo(request)
 	categories = Category.objects.all()
 	context = {'categories':categories}
 	return render(request, 'dashboard_admin/show_all_categories.html',
@@ -64,6 +67,7 @@ def show_all_categories(request):
 
 @login_required
 def show_all_products(request):
+	noForwardedsInfo(request)
 	products = Product.objects.all()
 	context = {'products':products}
 	return render(request, 'dashboard_admin/show_all_products.html',
@@ -72,7 +76,7 @@ def show_all_products(request):
 
 @login_required
 def edit_category(request, id_category):
-
+	noForwardedsInfo(request)
 	context = {}
 	category = Category.objects.get(id=id_category)
 	
@@ -99,7 +103,7 @@ def edit_category(request, id_category):
 
 @login_required
 def edit_product(request, id_product):
-
+	noForwardedsInfo(request)
 	context = {}
 	product = Product.objects.get(id=id_product)
 		
@@ -140,6 +144,7 @@ def edit_product(request, id_product):
 
 @login_required
 def new_product(request):
+	noForwardedsInfo(request)
 	context = {}
 	
 	if request.method == 'GET':
@@ -168,8 +173,6 @@ def new_product(request):
 		context['form'] = form
 
 		return HttpResponseRedirect(reverse('dashboard_admin:show_all_products'))
-		
-	
 
 
 @login_required
@@ -194,6 +197,7 @@ def delete_product(request, id_product):
 
 @login_required
 def order_datail(request, order_id):
+	noForwardedsInfo(request)
 	order = Order.objects.get(id=order_id)
 	items = OrderItem.objects.filter(order=order_id)
 	context = {
@@ -209,6 +213,12 @@ def forward(request, order_id):
 	order = Order.objects.get(id=order_id)
 	order.forwarded = True
 	order.save()
+	
+	request.session['no_forwarded'] = \
+		int(request.session['no_forwarded']) - 1
+	if int(request.session['no_forwarded']) <= 0:
+		del request.session['no_forwarded']
+
 	messages.success(request, 
 		"Pedido Encaminhado!")
 	url = '/area_administrativa/detalhes_do_pedido/{}'.format(order_id)
@@ -221,7 +231,6 @@ def forwarded(request):
 	context = {
 		'orders': orders
 	}
-
 	return render(request, 'dashboard_admin/forwarded.html',
 		context)
 
