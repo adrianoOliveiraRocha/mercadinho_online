@@ -96,6 +96,8 @@ class Order(models.Model):
 		verbose_name='Encaminhado',
 		default=False,
 		blank=True)
+	money = models.DecimalField('Dinheiro R$', max_digits=10,
+		decimal_places=2, default=0)
 
 	def __str__(self):
 		return 'Pedido realizado por {} em {}'.format(self.user, self.date)
