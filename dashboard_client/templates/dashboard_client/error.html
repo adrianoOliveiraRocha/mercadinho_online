@@ -1,0 +1,35 @@
+{% extends 'dashboard_client/base.html' %}
+
+
+{% block superior %}
+
+<!-- esse bloco está à cima do menu -->
+
+{% endblock %} 
+
+<!-- o menu está no base.html e aparece aqui -->
+
+{% block conteudo %}
+<div class="container-fluid" style="margin-top: 2%">
+
+	<div class="container" style="width: 100%">
+	  {{ erro }}
+      {% for erro in errors %}
+        {{ erro }}
+      {% endfor %}
+
+      {% if messages %}
+	    {% for error in messages %}
+	        <div class="alert alert-warning alert-dismissable">
+	          <button type="button" class="close" data-dismiss="alert">&times;</button>
+	          {{ error }}
+	        </div>
+	    {% endfor %}
+	  {% endif %} 
+
+	</div>
+
+	
+{% endblock %} <!-- fim do bloco conteudo -->
+
+<!-- roda pé que está na página base.html aparece aqui -->

@@ -34,14 +34,25 @@ def index(request):
 
 @login_required
 def send_order(request, order_id):
+    	
 	order = Order.objects.get(id=order_id)
 	items = OrderItem.objects.filter(order=order_id)
 	order.value = Order.get_total(order.id)
 	order.sended = True
 	order.status_order = 'I' # dont appears in dash board as not sended 
+	money = Utils.convertStringForNumber(request.GET['money'])
+	
+	if(money):
+		order.money = money
+	else:
+		messages.warning(request, 'Por favor digite um calor válido para Dinheiro')
+		return HttpResponseRedirect(reverse('dashboard_client:index'))
+
 	order.save()
+
 	del request.session['order_id']
 	del request.session['howItems']
+	
 	return render(request, 'dashboard_client/sended.html')
 
 
@@ -163,3 +174,4 @@ def order_detail(request, order_id):
 	}
 	return render(request, 'dashboard_client/order_detail.html',
 		context)
+

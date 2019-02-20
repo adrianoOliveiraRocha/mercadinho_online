@@ -63,23 +63,33 @@
 					     </td>
 			  		</tr>
 			  		{% endfor %}
+						
 			  	</tbody>
 			</table>
+
 			<table class="table">
 				<td><h3>Total R$</h3></td>
 				<td><h3>R$ {{total}}</h3></td>
 			</table>
 
+			<form action="{% url 'dashboard_client:send_order' order.id %}" 
+			method='GET'>
+			<table class='table'>
+				<tr>
+					<td><h3>Troco para R$</h3></td>
+					<td><input name='money'></td>
+				</tr>
+			</table>
+
 			<div class="container">
-			  <a type="button" class="btn btn-primary"
-			  href="{% url 'dashboard_client:send_order' order.id %}">
-			  	Enviar Pedido
-			  </a>
-			  <a type="button" class="btn btn-warning" 
+				<input class="btn btn-primary" type="submit" value="Enviar Pedido"/>
+			  <a type="submit" class="btn btn-warning" 
 			  href="{% url 'dashboard_client:cancel_order' order.id %}">
 			  	Cancelar
 			  </a>    
 			</div>
+			</form>
+
 			{% else %}
 			<div class="alert alert-warning">
 			  Você não tem nenhum pedido a enviar
