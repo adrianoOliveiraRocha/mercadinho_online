@@ -124,8 +124,12 @@
 				
 				<a href="{% url 'dashboard_admin:forward' order.id %}" 
 				class="btn btn-primary"> 
-				Marcar como Encaminhado
-			</a>
+					Marcar como Encaminhado
+				</a>
+				<a href="{% url 'dashboard_admin:make_pdf' order.id %}" 
+				class="btn btn-primary"> 
+					Gerar PDF
+				</a>
 				
 			</div>
 		</div>

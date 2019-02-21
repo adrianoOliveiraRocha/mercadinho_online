@@ -8,6 +8,12 @@ from django.contrib import messages
 from core.utils import Utils
 from django.urls import reverse
 from checkout.models import Order, OrderItem
+from reportlab.platypus import (SimpleDocTemplate, Paragraph, 
+	Spacer, Table, TableStyle)
+from reportlab.lib.styles import getSampleStyleSheet
+from reportlab.lib.units import inch
+from reportlab.lib import colors
+from django.core.files.storage import FileSystemStorage
 
 def noForwardedsInfo(request):
 	""" This function update the information about orders no forwarded and 
@@ -137,9 +143,7 @@ def edit_product(request, id_product):
 				'Por favor, preencha os dados corretamente!')
 
 		return HttpResponseRedirect(
-			reverse('dashboard_admin:show_all_products'))
-
-	
+			reverse('dashboard_admin:show_all_products'))	
 
 
 @login_required
@@ -244,3 +248,14 @@ def no_forwarded(request):
 
 	return render(request, 'dashboard_admin/no_forwarded.html',
 		context)
+
+@login_required
+def make_pdf(request, order_id):
+	noForwardedsInfo(request)
+	order = Order.objects.get(id=order_id)
+	items = OrderItem.objects.filter(order=order_id)
+	context = {
+		'order': order,
+		'items': items
+		}
+	return HttpResponse('make_pdf')

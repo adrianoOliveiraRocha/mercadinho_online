@@ -24,4 +24,5 @@ urlpatterns = [
 	path('encaminhar/<int:order_id>', views.forward, name='forward'),
 	path('encaminhados', views.forwarded, name='forwarded'),
 	path('nao_encaminhados', views.no_forwarded, name='no_forwarded'),
+	path('make_pdf<int:order_id>', views.make_pdf, name='make_pdf')
 ]
