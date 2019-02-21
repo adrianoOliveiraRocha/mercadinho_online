@@ -35,3 +35,9 @@ def forwarded(value):
 		return 'Foi Encaminhado'
 	else:
 		return 'Ainda não Encaminhado'	
+
+
+@register.simple_tag
+def rest(value, money):
+	return money - value
+

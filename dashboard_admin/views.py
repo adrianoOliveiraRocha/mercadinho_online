@@ -10,7 +10,7 @@ from django.urls import reverse
 from checkout.models import Order, OrderItem
 
 def noForwardedsInfo(request):
-	""" This function actualize the information about orders no forwarded and 
+	""" This function update the information about orders no forwarded and 
 	return the object orderSended. Some functions need no use this object """
 	ordersSendeds = Order.objects.filter(sended=True)
 	request.session['no_forwarded'] = Order.getNoForwardeds(ordersSendeds)

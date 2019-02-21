@@ -98,22 +98,38 @@
 				<td></td>
 				<td></td>
 			</tr>
+			
 			{% endfor %}
+			
 		</table>
-		<h3>Total: R${{order.value}}</h3>
 
+		<table class='table'>
+			<tr>
+				<td><h3>Total</h3></td>
+				<td><h3>R$ {{ order.value }}</h3></td>
+			</tr>
+			<tr>
+				<td><h3>Dinheiro</h3></td>
+				<td><h3>R$ {{ order.money }}</h3></td>
+			</tr>
+			<tr>
+				<td><h3>Troco</h3></td>
+				<td><h3>{% rest order.value order.money %}</h3></td>
+			</tr>
+		</table>
+		
 		{% if not order.forwarded %}
 		<div class="form-group" style="margin-top: 3%">
-          <div class="col-md-9 col-md-offset-3">
-            
-            <a href="{% url 'dashboard_admin:forward' order.id %}" 
-            class="btn btn-primary"> 
-	        	Marcar como Encaminhado
-	        </a>
-            
-          </div>
-        </div>
-        {% endif %}
+			<div class="col-md-9 col-md-offset-3">
+				
+				<a href="{% url 'dashboard_admin:forward' order.id %}" 
+				class="btn btn-primary"> 
+				Marcar como Encaminhado
+			</a>
+				
+			</div>
+		</div>
+		{% endif %}
 
 		<!-- The Modal -->
 		<div class="modal" id="myModal">
