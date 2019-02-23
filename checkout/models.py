@@ -136,10 +136,6 @@ class OrderItem(models.Model):
 	product = models.ForeignKey(Product, on_delete=models.CASCADE)
 	order = models.ForeignKey(Order, on_delete=models.CASCADE)
 
-	@staticmethod
-	def getOfOrder(order_id):
-		
-
 	class Meta:
 		verbose_name = 'Ítem de Pedido'
 		verbose_name_plural = 'Ítens de Pedido'

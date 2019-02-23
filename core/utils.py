@@ -12,4 +12,17 @@ class Utils():
 			print(e)
 			return False
 
+	@staticmethod
+	def reverse_date(date):
+		""" reverse date for Portuguese """
+		receive = str.split(str(date), '-')
+		return receive[2] + '-' + receive[1] + '-' + receive[0]
+
+	@staticmethod
+	def orderItemValue(value, quantity):
+		return value * quantity
+
+	
+
+
 		

@@ -14,6 +14,7 @@ from reportlab.lib.styles import getSampleStyleSheet
 from reportlab.lib.units import inch
 from reportlab.lib import colors
 from django.core.files.storage import FileSystemStorage
+from core.utils import Utils
 
 def noForwardedsInfo(request):
 	""" This function update the information about orders no forwarded and 
@@ -251,11 +252,59 @@ def no_forwarded(request):
 
 @login_required
 def make_pdf(request, order_id):
-	noForwardedsInfo(request)
-	order = Order.objects.get(id=order_id)
-	items = OrderItem.objects.filter(order=order_id)
-	context = {
-		'order': order,
-		'items': items
-		}
-	return HttpResponse('make_pdf')
+	# order
+	order = Order.objects.get(id=order_id);
+	# client
+	client = User.objects.get(id=order.user.id)
+	# order items
+	order_items = OrderItem.objects.filter(order=order_id)
+
+	doc = SimpleDocTemplate("/tmp/report.pdf")
+	Catalog = []
+	styles = getSampleStyleSheet()
+	style = styles['Normal']
+	# informations about the order
+	header = Paragraph("Pedido {}".format(order.id), styles["Heading1"])
+	Catalog.append(header)
+	Catalog.append(Spacer(1, 1))
+
+	# Cliente
+	txt_intro_orders = "Cliente: {}<br /> Telefone: {}<br /> "\
+		"Logradouro: {}<br /> Número: {}<br />".format(client.name, client.telefone, 
+		client.logradouro, client.numero)
+	p = Paragraph(txt_intro_orders, styles['Heading3'])
+	Catalog.append(p)
+	Catalog.append(Spacer(1, 1))
+
+	# order items
+	text_order_items = """ Ítens do Pedido<br /> <br />"""
+	for order_item in order_items:
+		text_order_items += """
+		Produto:   {}<br />
+		Valor:     R$ {}<br />
+		Quantidade {}<br />
+		Subtotal   R$ {}<br />
+		<br />
+		""".format(order_item.product.name, order_item.value, 
+		order_item.quantity, Utils.orderItemValue(order_item.value, order_item.quantity))
+	
+	p = Paragraph(text_order_items, styles['Heading3'])
+	Catalog.append(p)
+	Catalog.append(Spacer(1, 1))
+
+	# values
+	text_values = """
+	Total:   R$ {}<br />
+	Dinheiro R$ {}<br />
+	Troco    R$ {}<br />
+	""".format(order.value, order.money, (order.money - order.value))
+	p = Paragraph(text_values, styles['Heading3'])
+	Catalog.append(p)
+	Catalog.append(Spacer(1, 1))
+
+	doc.build(Catalog)
+	fs = FileSystemStorage("/tmp")
+	with fs.open("report.pdf") as pdf:
+		response = HttpResponse(pdf, content_type='application/pdf')
+		response['Content-Disposition'] = 'attachment'; filename="relatorio.pdf"
+	return response
